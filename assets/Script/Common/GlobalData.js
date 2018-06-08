@@ -1,0 +1,3 @@
+window.G_Data = {
+    
+}
