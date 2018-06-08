@@ -10,31 +10,36 @@ window.G_Neb = {
     },
 
     //=====================包裹=====================
+    //## 当前所有包裹的数量（全部的）
     getParcelCount : {
         address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
         funcName : "getParcelCount",
     },
 
+    //## 获取我的个人信息
     getAssemblyInfo : {
         address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
         funcName : "getAssemblyInfo",
     },
 
+    //## 获取所有包裹数据
     getParcelData : {
         address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
         funcName : "getParcelData",
     },
 
+    //## 获取最新的包裹数据
     getParcelData_theLatest : {
         address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
         funcName : "getParcelData_theLatest",
     },
-
+    //## 发布包裹
     airdropParcel : {
         address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
         funcName : "airdropParcel",
     },
 
+    // ## 舔包裹
     lickParcel : {
         address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
         funcName : "lickParcel",
@@ -45,7 +50,7 @@ window.G_Net = {
     callbackAddress : "NebPay.config.testnetUrl",
     serialNumberList : [],
 
-    call (to, value, func, args){
+    call (to, value, func, args,callBack){
         let g_nebPay = neb_require("nebpay");
         let nebPay = new g_nebPay();
 
@@ -75,13 +80,14 @@ window.G_Net = {
                 showQRCode: false,      //是否显示二维码信息
                 container: undefined    //指定显示二维码的canvas容器，不指定则生成一个默认canvas
             },
+            listener : callBack,
         };
         let argStr = this._dealArg(args);
         let serialNumber = nebPay.call(to, value, func, argStr, options);
         this.serialNumberList.push(serialNumber);
     },
 
-    simulateCall (to, value, func, args){
+    simulateCall (to, value, func, args,callBack){
         let g_nebPay = neb_require("nebpay");
         let nebPay = new g_nebPay();
         
@@ -91,6 +97,7 @@ window.G_Net = {
                 showQRCode: false,      //是否显示二维码信息
                 container: undefined    //指定显示二维码的canvas容器，不指定则生成一个默认canvas
             },
+            listener : callBack,
         };
         var argStr = this._dealArg(args);
         let serialNumber = nebPay.simulateCall(to, value, func, argStr, options);
@@ -110,7 +117,7 @@ window.G_Net = {
         this.simulateCall(G_Neb.userInfo.address,0,G_Neb.userInfo.funcName,[])
     },
 
-    autoCall : function(type,paraList){
+    autoCall : function(type,paraList,callBack){
         let callType = "";
         switch (type){
             case G_Neb.getParcelCount:
@@ -132,7 +139,7 @@ window.G_Net = {
                 callType = "call";
                 break;
         }
-        this[callType](type.address,0,type.funcName,paraList);
+        this[callType](type.address,0,type.funcName,paraList,callBack);
     },
 
 
