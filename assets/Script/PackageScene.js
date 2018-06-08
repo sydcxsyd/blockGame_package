@@ -12,28 +12,38 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        choosePage : {
+            default : 0,
+            visible : false,
+        },
+
+        pageType : {
+            default : {
+                mine : 1,
+                history : 2,
+                market : 3,
+            },
+            visible : false,
+        }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
     start () {
+
+    },
+
+    onClickSendEvent (event){
+        
+    },
+
+    onClickHistoryEvent (event){
+
+    },
+
+    onClickMineEvent (event){
+
+    },
+
+    onClickMarketEvent (event){
 
     },
 
