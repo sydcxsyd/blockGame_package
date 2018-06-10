@@ -12,36 +12,36 @@ window.G_Neb = {
     //=====================包裹=====================
     //## 当前所有包裹的数量（全部的）
     getParcelCount : {
-        address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
+        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
         funcName : "getParcelCount",
     },
 
     //## 获取我的个人信息
     getAssemblyInfo : {
-        address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
+        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
         funcName : "getAssemblyInfo",
     },
 
     //## 获取所有包裹数据
     getParcelData : {
-        address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
+        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
         funcName : "getParcelData",
     },
 
     //## 获取最新的包裹数据
     getParcelData_theLatest : {
-        address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
+        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
         funcName : "getParcelData_theLatest",
     },
     //## 发布包裹
     airdropParcel : {
-        address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
+        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
         funcName : "airdropParcel",
     },
 
     // ## 舔包裹
     lickParcel : {
-        address : "n1suvnBrK7e2rDrDgg3GMbuLr52HjwijR2p",
+        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
         funcName : "lickParcel",
     },
 };
@@ -117,7 +117,7 @@ window.G_Net = {
         this.simulateCall(G_Neb.userInfo.address,0,G_Neb.userInfo.funcName,[])
     },
 
-    autoCall : function(type,paraList,callBack){
+    autoCall : function(type,paraList,value,callBack){
         let callType = "";
         switch (type){
             case G_Neb.getParcelCount:
@@ -139,7 +139,7 @@ window.G_Net = {
                 callType = "call";
                 break;
         }
-        this[callType](type.address,0,type.funcName,paraList,callBack);
+        this[callType](type.address,value,type.funcName,paraList,callBack);
     },
 
 

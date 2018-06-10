@@ -296,9 +296,6 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 18
-      },
-      {
         "__id__": 12
       }
     ],
@@ -358,10 +355,10 @@
         "__id__": 11
       },
       {
-        "__id__": 16
+        "__id__": 17
       },
       {
-        "__id__": 17
+        "__id__": 18
       }
     ],
     "_prefab": null,
@@ -533,7 +530,11 @@
     "_children": [],
     "_tag": -1,
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 16
+      }
+    ],
     "_prefab": null,
     "_id": "ebVK1BEMlBGpDSmcQRbjn2",
     "_opacity": 255,
@@ -642,6 +643,37 @@
     "_N$inverted": false
   },
   {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 300,
+      "height": 200
+    },
+    "_resize": 0,
+    "_N$layoutType": 3,
+    "_N$padding": 0,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 10,
+    "_N$paddingRight": 10,
+    "_N$paddingTop": 10,
+    "_N$paddingBottom": 10,
+    "_N$spacingX": 10,
+    "_N$spacingY": 10,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0
+  },
+  {
     "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
@@ -677,32 +709,6 @@
     "_enabled": true,
     "_spriteFrame": {
       "__uuid__": "5fe5dcaa-b513-4dc5-a166-573627b3a159"
-    },
-    "_type": 1,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 7
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -1079,10 +1085,10 @@
       "__uuid__": "e0f93ab1-73f5-4cbc-b63c-c9d03728dc0d"
     },
     "_N$hoverSprite": {
-      "__uuid__": "b9d90609-bcce-42c7-8eaa-364ac39d6101"
+      "__uuid__": "82fe377f-04c8-4268-ab62-590d20e55513"
     },
     "hoverSprite": {
-      "__uuid__": "b9d90609-bcce-42c7-8eaa-364ac39d6101"
+      "__uuid__": "82fe377f-04c8-4268-ab62-590d20e55513"
     },
     "_N$disabledSprite": {
       "__uuid__": "3934422d-6351-4b76-ae69-e786ee93eb21"
@@ -1237,10 +1243,10 @@
       "__uuid__": "32fae4fa-0da4-4f00-b45c-031e47d3f686"
     },
     "_N$hoverSprite": {
-      "__uuid__": "f663c43f-ece6-4b1e-8903-6960dff9de68"
+      "__uuid__": "56c663e6-de39-483a-aa4d-1667ce29508d"
     },
     "hoverSprite": {
-      "__uuid__": "f663c43f-ece6-4b1e-8903-6960dff9de68"
+      "__uuid__": "56c663e6-de39-483a-aa4d-1667ce29508d"
     },
     "_N$disabledSprite": {
       "__uuid__": "56c663e6-de39-483a-aa4d-1667ce29508d"
@@ -1395,10 +1401,10 @@
       "__uuid__": "08a228a9-53dd-46cc-b352-d7141aac2ddd"
     },
     "_N$hoverSprite": {
-      "__uuid__": "878791e7-f235-4dd1-8ebf-d07fc8448807"
+      "__uuid__": "53ceb77a-ad50-44b8-955a-ab68b515d121"
     },
     "hoverSprite": {
-      "__uuid__": "878791e7-f235-4dd1-8ebf-d07fc8448807"
+      "__uuid__": "53ceb77a-ad50-44b8-955a-ab68b515d121"
     },
     "_N$disabledSprite": {
       "__uuid__": "c800b93b-0555-4e52-ba1d-79e9e4914448"
@@ -1476,7 +1482,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 700,
-      "height": 100
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1509,7 +1515,7 @@
       "__uuid__": "d8c5c068-50fd-422c-be9d-ca6976e6c915"
     },
     "_N$maxWidth": 700,
-    "_N$lineHeight": 100,
+    "_N$lineHeight": 40,
     "_N$imageAtlas": null,
     "_N$handleTouchEvent": false
   },
@@ -1598,7 +1604,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_id": "9eS65QoKRHkIxFwUQ72fVG",
@@ -5696,8 +5702,29 @@
     "packagePre": {
       "__uuid__": "8cee29fa-6654-42b6-854e-4f75876a883e"
     },
+    "packageBigPre": {
+      "__uuid__": "9f203340-e031-4087-a857-74e0da77b682"
+    },
     "packagesScollView": {
       "__id__": 12
+    },
+    "mineSelectImg": {
+      "__uuid__": "82fe377f-04c8-4268-ab62-590d20e55513"
+    },
+    "historySelectImg": {
+      "__uuid__": "56c663e6-de39-483a-aa4d-1667ce29508d"
+    },
+    "marketSelectImg": {
+      "__uuid__": "53ceb77a-ad50-44b8-955a-ab68b515d121"
+    },
+    "mineNormalImg": {
+      "__uuid__": "b9d90609-bcce-42c7-8eaa-364ac39d6101"
+    },
+    "historyNormalImg": {
+      "__uuid__": "f663c43f-ece6-4b1e-8903-6960dff9de68"
+    },
+    "marketNormalImg": {
+      "__uuid__": "878791e7-f235-4dd1-8ebf-d07fc8448807"
     },
     "senderLayer": {
       "__id__": 39
