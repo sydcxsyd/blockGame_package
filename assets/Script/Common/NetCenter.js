@@ -12,42 +12,49 @@ window.G_Neb = {
     //=====================包裹=====================
     //## 当前所有包裹的数量（全部的）
     getParcelCount : {
-        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
+        address : G_Con.packageUrl,
         funcName : "getParcelCount",
     },
 
     //## 获取我的个人信息
     getAssemblyInfo : {
-        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
+        address : G_Con.packageUrl,
         funcName : "getAssemblyInfo",
     },
 
     //## 获取所有包裹数据
     getParcelData : {
-        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
+        address : G_Con.packageUrl,
         funcName : "getParcelData",
     },
 
     //## 获取最新的包裹数据
     getParcelData_theLatest : {
-        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
+        address : G_Con.packageUrl,
         funcName : "getParcelData_theLatest",
     },
     //## 发布包裹
     airdropParcel : {
-        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
+        address : G_Con.packageUrl,
         funcName : "airdropParcel",
     },
 
     // ## 舔包裹
     lickParcel : {
-        address : "n1rRQpru6w1dJZvoyGoSGYFU3qWsxPHLUXu",
+        address : G_Con.packageUrl,
         funcName : "lickParcel",
     },
+    // ## 下架
+    soldOut : {
+        address : G_Con.packageUrl,
+        funcName : "soldOut",
+    },
+
 };
 
 window.G_Net = {
-    callbackAddress : "NebPay.config.testnetUrl",
+    // callbackAddress : "NebPay.config.testnetUrl",
+    callbackAddress : "NebPay.config.mainnetUrl",
     serialNumberList : [],
 
     call (to, value, func, args,callBack){
@@ -85,6 +92,8 @@ window.G_Net = {
         let argStr = this._dealArg(args);
         let serialNumber = nebPay.call(to, value, func, argStr, options);
         this.serialNumberList.push(serialNumber);
+
+        G_Func.popTip("正在交易中");
     },
 
     simulateCall (to, value, func, args,callBack){
@@ -121,26 +130,17 @@ window.G_Net = {
         let callType = "";
         switch (type){
             case G_Neb.getParcelCount:
-                callType = "simulateCall";
-                break;
             case G_Neb.getAssemblyInfo:
-                callType = "simulateCall";
-                break;
             case G_Neb.getParcelData:
-                callType = "simulateCall";
-                break;
             case G_Neb.getParcelData_theLatest:
                 callType = "simulateCall";
                 break;
             case G_Neb.airdropParcel:
-                callType = "call";
-                break;
             case G_Neb.lickParcel:
+            case G_Neb.soldOut:
                 callType = "call";
                 break;
         }
         this[callType](type.address,value,type.funcName,paraList,callBack);
     },
-
-
 };

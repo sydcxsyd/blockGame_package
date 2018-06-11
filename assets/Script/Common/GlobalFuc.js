@@ -20,4 +20,47 @@ window.G_Func = {
         }
         return result;
     },
+
+    isPackageIsMine(id){
+        if(G_Data.userDataObj && G_Data.userDataObj.lsAirdropParcel){
+            for(let i in G_Data.userDataObj.lsAirdropParcel){
+                let packId = G_Data.userDataObj.lsAirdropParcel[i];
+                if(packId == id){
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
+
+    popTip(str){
+        cc.log("popTip : " + str);
+
+        let label = cc.find("Canvas/tipBg/tipLabel");
+        label.getComponent(cc.RichText).string = str;
+
+        let tipBg = cc.find("Canvas/tipBg");
+        tipBg.stopAllActions();
+        tipBg.setLocalZOrder(99999);
+        tipBg.active = true;
+        tipBg.opacity = 255;
+
+        tipBg.runAction(new cc.Sequence(new cc.DelayTime(2),new cc.FadeOut(2),new cc.CallFunc(function () {
+            this.active = false;
+        }.bind(tipBg))))
+    },
+
+    checkCallBack(resp){
+        if(resp !==null && (typeof resp =="string") && resp.indexOf("rejected by user") > -1) {
+            this.popTip("用户取消了交易");
+            return;
+        }
+    },
+
+    checkExtension() {
+        if (typeof(webExtensionWallet) === "undefined") {
+            this.popTip("钱包插件未安装！");
+        }
+    },
+
 }

@@ -74,6 +74,11 @@ cc.Class({
             type : cc.Node,
         },
 
+        helpLayer : {
+            default : null,
+            type : cc.Node,
+        },
+
         minVauleEdit : {
             default : null,
             type : cc.EditBox,
@@ -110,6 +115,7 @@ cc.Class({
         this.choosePage = this.pageType.market;
         this.reloadPage();
         this.schedule(this.getPackageInfo,10);
+        G_Func.checkExtension();
     },
 
     getPackageInfo (){
@@ -119,10 +125,6 @@ cc.Class({
 
     start () {
 
-    },
-
-    onClickSendEvent (event){
-        this.senderLayer.active = true;
     },
 
     onClickSendOutEvent (event){
@@ -174,6 +176,18 @@ cc.Class({
         this.reloadPage();
     },
 
+    onClickHelpEvent (event){
+        this.helpLayer.active = true;
+    },
+
+    onClickCloseHelpLayer (event){
+        this.helpLayer.active = false;
+    },
+
+    onClickSendEvent (event){
+        this.senderLayer.active = true;
+    },
+
     onClickCloseSendLayer (event){
         this.senderLayer.active = false;
     },
@@ -189,13 +203,12 @@ cc.Class({
 
     getMineInfo (jsonObj){
         cc.log("getMineInfo : " + jsonObj);
-        if(jsonObj == null){
-            cc.log("new user")
-        }
-        if(jsonObj.result){
+        if(jsonObj.result != "null" && jsonObj.result != ""){
             G_Data.userDataObj = JSON.parse(jsonObj.result);
-            this.reloadPage();
+        }else{
+            G_Data.userDataObj = {};
         }
+        this.reloadPage();
     },
 
     getAllPackageInfo (jsonObj){
@@ -207,8 +220,8 @@ cc.Class({
                 let dataObj = result[i];
                 G_Data.packageDataObj[dataObj.parid] = dataObj;
             }
-            this.reloadPage();
         }
+        this.reloadPage();
     },
 
     reloadBtnType (){
@@ -263,22 +276,35 @@ cc.Class({
             }
             // "#9bc022"
         }else if(this.choosePage == this.pageType.market){
-            for(let i in G_Data.packageDataObj){
+            let packageList = [];
+            for(var i in G_Data.packageDataObj){
                 let data = G_Data.packageDataObj[i];
+                packageList.push(data);
+            }
+            packageList.sort(function(a,b){
+                return parseInt(a.parid) < parseInt(b.parid);
+            });
+            for(let i in packageList){
+                let data = packageList[i];
                 let node = this.getPackageNode(data);
                 cc.log(node);
                 node.parent = content;
-                node.setOpacityModifyRGB(true);
+                let minibaoguo_black = node.getChildByName("minibaoguo_black");
                 if(data.parstatus == G_Con.packageState.enable){
-                    node.color = cc.color(255,255,255);
+                    minibaoguo_black.active = false;
                 }else{
-                    node.color = cc.color(200,200,200);
+                    minibaoguo_black.active = true;
                 }
             }
         }
-        headStr = "已舔包裹" + G_Data.userDataObj.lsLickParcel.length + "个，";
-        headStr = headStr + "花费舔包门票" + "<color=#9bc022>" + (G_Data.userDataObj.totalLickParcel_ticketCost/G_Con.bigNum) + "</c>" +"NAS，";
-        headStr = headStr + "共开出" + "<color=#9bc022>" + (G_Data.userDataObj.totalLickParcel_finalPrices/G_Con.bigNum) + "</c>" +"NAS";
+        let lickNum = G_Data.userDataObj.lsLickParcel ? G_Data.userDataObj.lsLickParcel.length : 0;
+        let lickCost = G_Data.userDataObj.totalLickParcel_ticketCost ? G_Data.userDataObj.totalLickParcel_ticketCost : 0;
+        let lickGet = G_Data.userDataObj.totalLickParcel_finalPrices ? G_Data.userDataObj.totalLickParcel_finalPrices : 0;
+
+
+        headStr = "已舔包裹" + lickNum + "个，";
+        headStr = headStr + "花费舔包门票" + "<color=#9bc022>" + (lickCost/G_Con.bigNum) + "</c>" +"NAS，";
+        headStr = headStr + "共开出" + "<color=#9bc022>" + (lickGet/G_Con.bigNum) + "</c>" +"NAS";
         headLabel.string = headStr;
 
         headStr = headStr + "\n待舔包裹" + this.getEnablePackageNum() + "个，";
@@ -332,6 +358,7 @@ cc.Class({
                         packageContentLabel3.string = "剩余：" + G_Func.formatSeconds(leftSecond);
                     }
                 }
+
             }.bind(packageNode);
             packageNode.getComponent(cc.Component).schedule(timeFuc,1)
             timeFuc();
@@ -340,7 +367,7 @@ cc.Class({
             packageContentLabel3.string = "实际获得：" + data.final_prices/G_Con.bigNum;
         }else if(data.parstatus == G_Con.packageState.outDate){
             let packageContentLabel3 = packageNode.getChildByName("packageContentLabel3").getComponent("cc.Label");
-            packageContentLabel3.string = "已过期";
+            packageContentLabel3.string = "已下架";
         }
 
         return packageNode;
@@ -356,8 +383,8 @@ cc.Class({
         cc.log(jsonObj)
     },
 
-    sendCallBack (){
-
+    sendCallBack (jsonObj){
+        G_Func.checkCallBack(jsonObj);
     },
 
     // update (dt) {},

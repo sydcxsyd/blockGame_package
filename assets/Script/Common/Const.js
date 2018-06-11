@@ -6,4 +6,6 @@ window.G_Con = {
         eaten : 2,
         outDate : 3,
     },
+    //包裹合约地址
+    packageUrl : "n1pwGsYa2sUERjmQFZjv4ciMPpuSZNFXj8r",
 }
