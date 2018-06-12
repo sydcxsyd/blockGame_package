@@ -74,7 +74,9 @@ cc.Class({
                 }
                 this.node.destroy();
             }else{
-                G_Net.autoCall(G_Neb.lickParcel,[parseInt(this.data.parid)],this.data.ticket_prices/G_Con.bigNum,this.lickEnd.bind(this));
+                if(!G_Func.isPackageIsMine(this.data.parid)) {
+                    G_Net.autoCall(G_Neb.lickParcel, [parseInt(this.data.parid)], this.data.ticket_prices / G_Con.bigNum, this.lickEnd.bind(this));
+                }
                 this.node.destroy();
             }
         }else if(this.choosingPackType == G_Con.packageState.eaten){
@@ -100,7 +102,12 @@ cc.Class({
             this.schedule(function (dt) {
                 this.refeshTime();
             }.bind(this),1)
-            buttonLabel.string = "立即舔包";
+            if(G_Func.isPackageIsMine(this.data.parid)){
+                buttonLabel.string = "确定";
+            }else{
+                buttonLabel.string = "立即舔包";
+            }
+
             this.refeshTime();
         }else if(this.choosingPackType == G_Con.packageState.eaten){
             let packageContentLabel3 = this.node.getChildByName("packageContentLabel3").getComponent("cc.Label");
