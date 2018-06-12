@@ -273,6 +273,7 @@ cc.Class({
                 let node = this.getPackageNode(data);
                 cc.log(node);
                 node.parent = content;
+                index ++;
             }
             // "#9bc022"
         }else if(this.choosePage == this.pageType.market){
@@ -282,7 +283,7 @@ cc.Class({
                 packageList.push(data);
             }
             packageList.sort(function(a,b){
-                return parseInt(a.parid) < parseInt(b.parid);
+                return parseInt(a.parid) < parseInt(b.parid) ? 1 : -1;
             });
             for(let i in packageList){
                 let data = packageList[i];
@@ -295,6 +296,7 @@ cc.Class({
                 }else{
                     minibaoguo_black.active = true;
                 }
+                index ++;
             }
         }
         let lickNum = G_Data.userDataObj.lsLickParcel ? G_Data.userDataObj.lsLickParcel.length : 0;
