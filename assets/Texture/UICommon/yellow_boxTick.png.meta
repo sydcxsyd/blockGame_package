@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2084eefa-3923-4273-9445-ffccecf40256",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "yellow_boxTick": {
+      "ver": "1.0.3",
+      "uuid": "aae87fb4-f9f9-4c63-a4b0-c6c5bd0e0059",
+      "rawTextureUuid": "2084eefa-3923-4273-9445-ffccecf40256",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 36,
+      "height": 36,
+      "rawWidth": 36,
+      "rawHeight": 36,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "053919ae-519d-4652-bd79-703bc0949fbc",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "fishTile_101": {
+      "ver": "1.0.3",
+      "uuid": "818b20ed-bc1d-4555-8ad6-6d348127180a",
+      "rawTextureUuid": "053919ae-519d-4652-bd79-703bc0949fbc",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 4,
+      "trimX": 7,
+      "trimY": 0,
+      "width": 114,
+      "height": 120,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
