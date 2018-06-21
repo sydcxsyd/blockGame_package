@@ -26,10 +26,10 @@ cc.Class({
         }
     },
 
-    setData (rank,name,digMeter){
+    setData (rank,name,gotStr){
         this.rankLabel.string = "第" + rank + "名";
         this.nameLabel.string = name;
-        this.digLabel.string = digMeter + "米";
+        this.digLabel.string = gotStr;
     },
 
     // LIFE-CYCLE CALLBACKS:

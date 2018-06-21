@@ -51,7 +51,12 @@ cc.Class({
 
         loadingLabel : {
             default: null,
-            type : cc.Label,
+            type : cc.Node,
+        },
+
+        isFirst : {
+            default: true,
+            visible : false,
         },
     },
 
@@ -118,8 +123,11 @@ cc.Class({
     },
 
     reGame (event){
-        event.stopPropagation();
-        this.clean();
+        if(!this.isFirst){
+            event.stopPropagation();
+            this.clean();
+        }
+        this.isFirst = false;
         this.startGame();
     },
 
@@ -226,15 +234,25 @@ cc.Class({
     },
 
     onClickUpload (){
-        G_Net.autoCall(G_Neb.getAssemblyInfo,[],0,this.upLoadSucces.bind(this));
+        G_Net.autoCall(G_Neb.bird_upload,[this.score],0,this.upLoadSucces.bind(this));
     },
 
     upLoadSucces (){
-
+        cc.log("upLoadSucces success!~!");
     },
 
     onClickRank (){
         this.rankLayer.active = true;
+        this.loadingLabel.active = true;
+        G_Net.autoCall(G_Neb.bird_getRankList,[],0,this.getBankDataSuccess.bind(this));
+    },
+
+    getBankDataSuccess (jsonStr){
+        if(jsonStr.result != "null" && jsonStr.result != ""){
+            let bankData = JSON.parse(jsonStr.result);
+            this.setRankLayer(bankData);
+        }
+        this.loadingLabel.active = false;
     },
 
     onClickCloseRank (){
@@ -243,11 +261,17 @@ cc.Class({
 
     setRankLayer (dataList){
         let content = cc.find("Canvas/rankLayer/rankScroll/view/content");
+        content.removeAllChildren();
         let index = 0;
+        dataList.sort(function(a,b){
+            return a.totalScore > b.totalScore ? 1 : -1;
+        });
+
         for(let i in dataList){
             let data = dataList[i];
             let rankPanel = cc.instantiate(this.rankPanelPre);
             rankPanel.parent = content;
+            rankPanel.getComponent("DigRankPanel").setData(index + 1,data.nameStr,"总分 ： " + data.totalScore + "分");
             index++;
         }
         content.height = index * 100 + 100 * 0.5;

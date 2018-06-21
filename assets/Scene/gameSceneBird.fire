@@ -1312,7 +1312,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 660,
+      "width": 680,
       "height": 900
     },
     "_rotationX": 0,
@@ -1400,7 +1400,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
+      "width": 660,
       "height": 850
     },
     "_rotationX": 0,
@@ -1471,7 +1471,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 320,
+      "x": 330,
       "y": 0
     },
     "_skewX": 0,
@@ -1636,7 +1636,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 660,
+      "width": 680,
       "height": 850
     },
     "_rotationX": 0,
@@ -1692,7 +1692,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 660,
+      "width": 680,
       "height": 850
     },
     "_rotationX": 0,
@@ -1735,11 +1735,11 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 660,
+      "width": 680,
       "height": 850
     },
     "_resize": 0,
-    "_N$layoutType": 1,
+    "_N$layoutType": 2,
     "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
@@ -1883,8 +1883,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 325,
-      "y": 455.5
+      "x": 334.3,
+      "y": 460.2
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2067,8 +2067,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "DigScene",
+    "target": {
+      "__id__": 2
+    },
+    "component": "GameSceneBird",
     "handler": "onClickCloseRank",
     "customEventData": ""
   },
@@ -2192,8 +2194,9 @@
       "__uuid__": "d2319528-df9f-4ba3-906d-2d1e2509d12a"
     },
     "loadingLabel": {
-      "__id__": 56
-    }
+      "__id__": 55
+    },
+    "isFirst": true
   },
   {
     "__type__": "da892QpGxhO9b6Rp53vNGEn",

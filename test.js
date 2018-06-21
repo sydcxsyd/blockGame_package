@@ -1,137 +1,84 @@
 'use strict';
 
-let BirdContent = function(){
+let BirdCenter = function(){
   LocalContractStorage.defineMapProperty(this, "birdScoreMap", {
     parse: function (text) {
-      return new DepositeContent(text);
+      return new BirdContent(text);
     },
     stringify: function (o) {
       return o.toString();
     }
   });
+
+  LocalContractStorage.defineMapProperty(this, "birdScoreArrayMap");
+  LocalContractStorage.defineProperty(this, "playerNum");
+
 }
 
-BirdContent.prototype = {
+BirdCenter.prototype = {
   init(){
-
+    this.playerNum = 0;
   },
 
-  upload (height){
+  upload (score){
     var from = Blockchain.transaction.from;
     var value = Blockchain.transaction.value;
     var bk_height = new BigNumber(Blockchain.block.height);
 
-    var mapData = this.birdScoreMap.get(from);    
-    if (mapData) {
-      mapData = total.plus(mapData.total);
+    if(!score){
+      console.log("must got a score");
+      return
     }
 
-    var deposit = new DepositeContent();
-    deposit.balance = value;
-    deposit.expiryHeight = bk_height.plus(height);
+    var mapData = this.birdScoreMap.get(from);
+    let totalScore = score;
+    if (mapData) {
+      mapData = totalScore.plus(mapData.totalScore);
+      if(mapData.score > score){
+        score = mapData.score;
+      }
+    }else{
+      this.birdScoreArrayMap.set(this.playerNum, from);
+      this.playerNum++;
+    }
 
-    this.bankVault.put(from, deposit);
+    var data = new BirdContent();
+    data.score = score;
+    data.totalScore = totalScore;
+    data.nameStr = from;
+    this.birdScoreMap.set(from, data);    
+
+    return this.playerNum
   },
 
   getRankList (){
-
+    let result = [];    
+    for (var i = 0 ;i < this.playerNum; i++) {
+      let key = this.birdScoreArrayMap.get(i);
+      let parData = this.birdScoreMap.get(key);
+      result.push(parData);
+    }
+    return result;
   },
 };
 
-var DepositeContent = function (text) {
+var BirdContent = function (text) {
   if (text) {
     var o = JSON.parse(text);
-    this.balance = new BigNumber(o.balance);
-    this.expiryHeight = new BigNumber(o.expiryHeight);
+    this.score = new BigNumber(o.score);
+    this.totalScore = new BigNumber(o.totalScore);
+    this.nameStr = o.nameStr;
   } else {
-    this.balance = new BigNumber(0);
-    this.expiryHeight = new BigNumber(0);
+    this.score = new BigNumber(0);
+    this.totalScore = new BigNumber(0);
+    this.nameStr = "";
   }
 };
 
-DepositeContent.prototype = {
+BirdContent.prototype = {
   toString: function () {
     return JSON.stringify(this);
   }
 };
 
-var BankVaultContract = function () {
-  LocalContractStorage.defineMapProperty(this, "bankVault", {
-    parse: function (text) {
-      return new DepositeContent(text);
-    },
-    stringify: function (o) {
-      return o.toString();
-    }
-  });
-};
-
-// save value to contract, only after height of block, users can takeout
-BankVaultContract.prototype = {
-  init: function () {
-    //TODO:
-  },
-
-  save: function (height) {
-    var from = Blockchain.transaction.from;
-    var value = Blockchain.transaction.value;
-    var bk_height = new BigNumber(Blockchain.block.height);
-
-    var orig_deposit = this.bankVault.get(from);
-    if (orig_deposit) {
-      value = value.plus(orig_deposit.balance);
-    }
-
-    var deposit = new DepositeContent();
-    deposit.balance = value;
-    deposit.expiryHeight = bk_height.plus(height);
-
-    this.bankVault.put(from, deposit);
-  },
-
-  takeout: function (value) {
-    var from = Blockchain.transaction.from;
-    var bk_height = new BigNumber(Blockchain.block.height);
-    var amount = new BigNumber(value);
-
-    var deposit = this.bankVault.get(from);
-    if (!deposit) {
-      throw new Error("No deposit before.");
-    }
-
-    if (bk_height.lt(deposit.expiryHeight)) {
-      throw new Error("Can not takeout before expiryHeight.");
-    }
-
-    if (amount.gt(deposit.balance)) {
-      throw new Error("Insufficient balance.");
-    }
-
-    var result = Blockchain.transfer(from, amount);
-    if (!result) {
-      throw new Error("transfer failed.");
-    }
-    Event.Trigger("BankVault", {
-      Transfer: {
-        from: Blockchain.transaction.to,
-        to: from,
-        value: amount.toString()
-      }
-    });
-
-    deposit.balance = deposit.balance.sub(amount);
-    this.bankVault.put(from, deposit);
-  },
-  balanceOf: function () {
-    var from = Blockchain.transaction.from;
-    return this.bankVault.get(from);
-  },
-  verifyAddress: function (address) {
-    // 1-valid, 0-invalid
-    var result = Blockchain.verifyAddress(address);
-    return {
-      valid: result == 0 ? false : true
-    };
-  }
-};
-module.exports = BankVaultContract;
+module.exports = BirdCenter;
