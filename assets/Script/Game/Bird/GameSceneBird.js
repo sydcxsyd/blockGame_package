@@ -235,7 +235,8 @@ cc.Class({
     setRankLayer (dataList){
         let content = cc.find("Canvas/rankLayer/rankScroll/view/content");
         let index = 0;
-        for(var i in dataList){
+        for(let i in dataList){
+            let data = dataList[i];
             let rankPanel = cc.instantiate(this.rankPanelPre);
             rankPanel.parent = content;
             index++;

@@ -34,20 +34,28 @@ window.G_Func = {
     },
 
     popTip(str){
-        cc.log("popTip : " + str);
+        let canvasNode = cc.find("Canvas");
+        if(canvasNode.getChildByName("global_popTip")){
+            let popNode = canvasNode.getChildByName("global_popTip");
+            var tip = popNode.getComponent('PopTip');
+            tip.setTipData(str);
+        }else{
+            cc.loader.loadRes("Prefab/popTip", function(errorMessage,loadedResource){
+                //检查资源加载
+                if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
+                if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
+                //开始实例化预制资源
+                var popTipPrefab = cc.instantiate(loadedResource);
 
-        let label = cc.find("Canvas/tipBg/tipLabel");
-        label.getComponent(cc.RichText).string = str;
+                //将预制资源添加到父节点
+                canvasNode.addChild(popTipPrefab,9999,"global_popTip");
 
-        let tipBg = cc.find("Canvas/tipBg");
-        tipBg.stopAllActions();
-        tipBg.setLocalZOrder(99999);
-        tipBg.active = true;
-        tipBg.opacity = 255;
+                //获取预制资源中的js组件，并作出相应操作
+                var tip = popTipPrefab.getComponent('PopTip');
+                tip.setTipData(str);
+            });
+        }
 
-        tipBg.runAction(new cc.Sequence(new cc.DelayTime(2),new cc.FadeOut(2),new cc.CallFunc(function () {
-            this.active = false;
-        }.bind(tipBg))))
     },
 
     checkCallBack(resp){
