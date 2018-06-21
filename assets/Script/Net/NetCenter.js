@@ -141,6 +141,7 @@ window.G_Net = {
     autoCall : function(type,paraList,value,callBack){
         let callType = "";
         switch (type){
+            //----------package----------
             case G_Neb.getParcelCount:
             case G_Neb.getAssemblyInfo:
             case G_Neb.getParcelData:
@@ -152,6 +153,15 @@ window.G_Net = {
             case G_Neb.soldOut:
                 callType = "call";
                 break;
+            //----------package----------
+            //----------bird----------
+            case G_Neb.bird_getRankList:
+                callType = "simulateCall";
+                break;
+            case G_Neb.bird_upload:
+                callType = "call";
+                break;
+            //----------bird----------
         }
         this[callType](type.address,value,type.funcName,paraList,callBack);
     },
