@@ -50,6 +50,18 @@ window.G_Neb = {
         funcName : "soldOut",
     },
 
+    //=====================bird=====================
+    // upload
+    bird_upload : {
+        address : G_Con.birdUrl,
+        funcName : "upload",
+    },
+
+    // 获取排行榜
+    bird_getRankList : {
+        address : G_Con.birdUrl,
+        funcName : "getRankList",
+    },
 };
 
 window.G_Net = {

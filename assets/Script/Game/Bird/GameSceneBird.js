@@ -48,6 +48,11 @@ cc.Class({
             default: null,
             type : cc.Prefab,
         },
+
+        loadingLabel : {
+            default: null,
+            type : cc.Label,
+        },
     },
 
     pipList : null,
@@ -221,6 +226,10 @@ cc.Class({
     },
 
     onClickUpload (){
+        G_Net.autoCall(G_Neb.getAssemblyInfo,[],0,this.upLoadSucces.bind(this));
+    },
+
+    upLoadSucces (){
 
     },
 
