@@ -58,6 +58,11 @@ cc.Class({
             default: true,
             visible : false,
         },
+
+        isUploaded : {
+            default: false,
+            visible : false,
+        },
     },
 
     pipList : null,
@@ -139,6 +144,7 @@ cc.Class({
         birdScript.reset();
         this.score = 0;
         this.moveDis = 0;
+        this.isUploaded = false;
     },
 
     reloadScore : function(){
@@ -234,6 +240,15 @@ cc.Class({
     },
 
     onClickUpload (){
+        if(this.isFirst){
+            G_Func.popTip("请先进行游戏");
+            return;
+        }
+        if(this.isUploaded){
+            G_Func.popTip("本次结果已上传");
+            return;
+        }
+        this.isUploaded = true;
         G_Net.autoCall(G_Neb.bird_upload,[this.score],0,this.upLoadSucces.bind(this));
     },
 

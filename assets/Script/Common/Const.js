@@ -12,5 +12,5 @@ window.G_Con = {
     //包裹合约地址
     packageUrl : "n1krJhezv3V9iPPkALaMvHaF8Xr96yNxzhp",
     //bird合约地址
-    birdUrl : "n1m2QmL8hyhHNdTYP1ykrDKa9HiJjLeEmXp",
+    birdUrl : "n1tXyZJYeF4FEKP648DDNaP7nsrgJpwRTV6",
 }

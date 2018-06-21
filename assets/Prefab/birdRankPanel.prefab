@@ -111,7 +111,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 449,
+      "width": 457,
       "height": 30
     },
     "_rotationX": 0,
@@ -139,13 +139,11 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 24,
-    "_fontSize": 24,
+    "_actualFontSize": 22,
+    "_fontSize": 22,
     "_lineHeight": 30,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "n1m2QmL8hyhHNdTYP1ykrDKa9HiJjLeEmXp",
@@ -220,7 +218,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 114,
+      "width": 134,
       "height": 60
     },
     "_rotationX": 0,
@@ -252,9 +250,7 @@
     "_fontSize": 50,
     "_lineHeight": 60,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "第1名",
@@ -329,7 +325,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 212,
+      "width": 222,
       "height": 45
     },
     "_rotationX": 0,
@@ -361,9 +357,7 @@
     "_fontSize": 40,
     "_lineHeight": 45,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "10000000分",
