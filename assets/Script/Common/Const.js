@@ -1,4 +1,7 @@
 window.G_Con = {
+    app_id : "201",
+    app_key : "MTxo7FCsilhbzH7s",
+    
     bigNum : 1000000000000000000,
 
     packageState : {
