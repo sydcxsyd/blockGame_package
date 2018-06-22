@@ -235,7 +235,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 294,
+      "width": 333,
       "height": 100
     },
     "_rotationX": 0,
@@ -267,9 +267,7 @@
     "_fontSize": 50,
     "_lineHeight": 100,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "已挖掘：200米",
@@ -847,7 +845,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
+      "width": 200,
       "height": 100
     },
     "_rotationX": 0,
@@ -879,12 +877,10 @@
     "_fontSize": 100,
     "_lineHeight": 100,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "挖！",
+    "_N$string": "  挖！",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1117,9 +1113,7 @@
     "_fontSize": 50,
     "_lineHeight": 100,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "上传",
@@ -1355,9 +1349,7 @@
     "_fontSize": 50,
     "_lineHeight": 100,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "bb333c73-de4f-4d7b-adff-fbfac6c5ba31"
-    },
+    "_N$file": null,
     "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "排行",

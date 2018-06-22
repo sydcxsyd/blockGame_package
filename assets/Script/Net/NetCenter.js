@@ -62,6 +62,25 @@ window.G_Neb = {
         address : G_Con.birdUrl,
         funcName : "getRankList",
     },
+
+    //=====================dig=====================
+    // upload
+    dig_upload : {
+        address : G_Con.digUrl,
+        funcName : "upload",
+    },
+
+    // 获取当前
+    dig_getNowDigMeter : {
+        address : G_Con.digUrl,
+        funcName : "getNowDigMeter",
+    },
+
+    // 获取排行榜
+    dig_getRankList : {
+        address : G_Con.digUrl,
+        funcName : "getRankList",
+    },
 };
 
 window.G_Net = {
@@ -162,6 +181,16 @@ window.G_Net = {
                 callType = "call";
                 break;
             //----------bird----------
+            //----------dig----------
+            case G_Neb.dig_getRankList:
+            case G_Neb.dig_getNowDigMeter:
+                callType = "simulateCall";
+                break;
+            case G_Neb.dig_upload:
+                callType = "call";
+                break;
+            //----------dig----------
+
         }
         this[callType](type.address,value,type.funcName,paraList,callBack);
     },

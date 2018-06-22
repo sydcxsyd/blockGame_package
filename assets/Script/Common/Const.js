@@ -13,4 +13,6 @@ window.G_Con = {
     packageUrl : "n1krJhezv3V9iPPkALaMvHaF8Xr96yNxzhp",
     //bird合约地址
     birdUrl : "n1tXyZJYeF4FEKP648DDNaP7nsrgJpwRTV6",
+    //dig合约地址
+    digUrl : "n1tXyZJYeF4FEKP648DDNaP7nsrgJpwRTV6",
 }

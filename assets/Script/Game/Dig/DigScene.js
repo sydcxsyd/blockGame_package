@@ -51,7 +51,9 @@ cc.Class({
     	}.bind(this))
     	this.digBtn.on(cc.Node.EventType.TOUCH_CANCEL,function(){
     		this.isDigging = false;
-    	}.bind(this))
+    	}.bind(this));
+    	G_Net.autoCall()
+        G_Func.checkExtension();
     },
 
     onClickDig (){
@@ -67,11 +69,15 @@ cc.Class({
     },
 
     onClickSend (){
+        G_Net.autoCall(G_Neb.dig_upload,[this.digMeter],0,this.upLoadSucces.bind(this));
+    },
 
+    upLoadSucces (){
+        G_Func.popTip("上传成功");
     },
 
     randomEvent (){
-
+        
     },
 
     reloadDig (){
@@ -81,8 +87,12 @@ cc.Class({
     update (dt) {
     	if(this.isDigging){
     		this.digMeter++;
-    		this.reloadDig()
-    		G_Func.random();
+    		this.reloadDig();
+
+            let random = G_Func.getRandom();
+            if(random * 10000 < 1){
+                this.randomEvent();
+            }
     	}
     },
 });
