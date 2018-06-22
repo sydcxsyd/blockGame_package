@@ -104,6 +104,7 @@ cc.Class({
         returnBtn.on(cc.Node.EventType.TOUCH_END,this.returnToMain,this);
 
         this.bird.active = false;
+        G_Func.checkExtension();
     },
 
     startGame () {
