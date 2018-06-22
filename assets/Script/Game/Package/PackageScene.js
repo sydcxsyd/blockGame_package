@@ -161,7 +161,7 @@ cc.Class({
             for(let i in listSkin){
                 let toggle = listSkin[i];
                 if(toggle.isChecked){
-                    skinIndex = parseInt(i);
+                    skinIndex = parseInt(i) + 1;
                     break;
                 }
             }
