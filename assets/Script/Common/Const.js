@@ -10,7 +10,7 @@ window.G_Con = {
         outDate : 3,
     },
     //包裹合约地址
-    packageUrl : "n1ynnV58SpUESzGvwU69yyN1nnpuGUqwuqT",
+    packageUrl : "n1ugQJQb59bCoQviokCSyJSht8ce5XZtkCQ",
     //bird合约地址
     birdUrl : "n1ugQJQb59bCoQviokCSyJSht8ce5XZtkCQ",
 
