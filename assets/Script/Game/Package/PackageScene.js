@@ -157,7 +157,7 @@ cc.Class({
                 }
             }
 
-            let skinIndex = 0;
+            let skinIndex = 1;
             for(let i in listSkin){
                 let toggle = listSkin[i];
                 if(toggle.isChecked){
