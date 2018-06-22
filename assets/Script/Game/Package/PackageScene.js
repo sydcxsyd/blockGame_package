@@ -100,6 +100,10 @@ cc.Class({
             type : cc.ToggleContainer,
         },
 
+        skinToggle : {
+            default : null,
+            type : cc.ToggleContainer,
+        },
     },
 
     ctor (){
@@ -117,6 +121,17 @@ cc.Class({
         this.reloadPage();
         this.schedule(this.getPackageInfo,10);
         G_Func.checkExtension();
+        this.spriteFrameDic = {};
+
+        cc.loader.loadResDir("Package",cc.SpriteFrame, function (err, assets) {
+            // assets 是一个 SpriteFrame 数组，已经包含了图集中的所有 SpriteFrame。
+            // 而 loadRes('test assets/sheep', cc.SpriteAtlas, function (err, atlas) {...}) 获得的则是整个 SpriteAtlas 对象。
+            for(var i in assets){
+                this.spriteFrameDic[assets[i].name] = assets[i];
+                // assets[i].retain();
+            }
+
+        }.bind(this));
     },
 
     getPackageInfo (){
@@ -131,23 +146,34 @@ cc.Class({
     onClickSendOutEvent (event){
         if(this.minVauleEdit.string && this.maxValueEdit.string && this.costEdit.string
             && (Number(this.minVauleEdit.string) <=  Number(this.maxValueEdit.string))){
-            let list = this.timeToggle.getComponentsInChildren("cc.Toggle");
-            let index = i;
-            for(let i in list){
-                let toggle = list[i];
+            let listTime = this.timeToggle.getComponentsInChildren("cc.Toggle");
+            let listSkin = this.skinToggle.getComponentsInChildren("cc.Toggle");
+            let timeIndex = 0;
+            for(let i in listTime){
+                let toggle = listTime[i];
                 if(toggle.isChecked){
-                    index = parseInt(i);
+                    timeIndex = parseInt(i);
                     break;
                 }
             }
+
+            let skinIndex = 0;
+            for(let i in listSkin){
+                let toggle = listSkin[i];
+                if(toggle.isChecked){
+                    skinIndex = parseInt(i);
+                    break;
+                }
+            }
+
             let min = Number(this.minVauleEdit.string);
             let max = Number(this.maxValueEdit.string);
             let cost = Number(this.costEdit.string);
             let date = new Date();
             let hourList = [6,12,24,48,72,24 * 12];
             let time = parseInt(date.getTime()/1000);
-            time = time + (3600 * hourList[index]);
-            G_Net.autoCall(G_Neb.airdropParcel,[min,max,cost,time],max,this.sendCallBack);
+            time = time + (3600 * hourList[timeIndex]);
+            G_Net.autoCall(G_Neb.airdropParcel,[min,max,cost,time,"","",skinIndex],max,this.sendCallBack);
         }else{
             cc.log("short of para");
         }
@@ -333,11 +359,16 @@ cc.Class({
         let pageName = packageNode.getChildByName("pageName").getComponent("cc.Label");
         pageName.string = data.parid + "号包裹";
 
-        let packageContentLabel1 = packageNode.getChildByName("packageContentLabel1").getComponent("cc.Label");
-        packageContentLabel1.string = data.ticket_prices/G_Con.bigNum;
-
-        let packageContentLabel2 = packageNode.getChildByName("packageContentLabel2").getComponent("cc.Label");
-        packageContentLabel2.string = data.cost_min/G_Con.bigNum + "-" + (data.cost_max/G_Con.bigNum);
+        // let packageContentLabel1 = packageNode.getChildByName("packageContentLabel1").getComponent("cc.Label");
+        // packageContentLabel1.string = data.ticket_prices/G_Con.bigNum;
+        //
+        // let packageContentLabel2 = packageNode.getChildByName("packageContentLabel2").getComponent("cc.Label");
+        // packageContentLabel2.string = data.cost_min/G_Con.bigNum + "-" + (data.cost_max/G_Con.bigNum);
+        if(data.parskin && data.parskin > 0 && data.parskin <= 8){
+            let bgImgStr = "minibaoguo0" + data.parskin + "_normal";
+            let baoSprite = packageNode.getChildByName("minibaoguo_normal").getComponent("cc.Sprite");
+            baoSprite.spriteFrame = this.spriteFrameDic[bgImgStr];
+        }
 
         packageNode.package_data = data;
         packageNode.on(cc.Node.EventType.TOUCH_END,function(Event){

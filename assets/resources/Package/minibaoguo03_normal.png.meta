@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "00cbf407-3ad6-4151-b52e-cab7ddaead3d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "minibaoguo03_normal": {
+      "ver": "1.0.3",
+      "uuid": "fa17dd0f-255b-4ab0-8416-ce8d32e7bb6c",
+      "rawTextureUuid": "00cbf407-3ad6-4151-b52e-cab7ddaead3d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -8.5,
+      "trimX": 0,
+      "trimY": 17,
+      "width": 206,
+      "height": 279,
+      "rawWidth": 206,
+      "rawHeight": 296,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

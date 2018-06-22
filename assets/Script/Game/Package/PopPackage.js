@@ -29,6 +29,20 @@ cc.Class({
         let packageContentLabel2 = packageNode.getChildByName("packageContentLabel2").getComponent("cc.Label");
         packageContentLabel2.string = this.data.cost_min/G_Con.bigNum + "-" + (this.data.cost_max/G_Con.bigNum);
 
+        if(this.data.parskin && this.data.parskin > 0 && this.data.parskin <= 8){
+            let headStr = "Package/xiangzi01_0" + this.data.parskin + ".png";
+            let xiangzi01 = packageNode.getChildByName("xiangzi01").getComponent("cc.Sprite");
+            cc.loader.loadRes(headStr,cc.SpriteFrame,function (err,spriteFrame) {
+                xiangzi01.spriteFrame = spriteFrame;
+            })
+
+            let contentStr = "Package/xiangzi02_0" + this.data.parskin + ".png";
+            let xiangzi02 = packageNode.getChildByName("xiangzi02").getComponent("cc.Sprite");
+            cc.loader.loadRes(contentStr,cc.SpriteFrame,function (err,spriteFrame) {
+                xiangzi02.spriteFrame = spriteFrame;
+            })
+        }
+
         this.setPackType(this.data.parstatus);
     },
 
