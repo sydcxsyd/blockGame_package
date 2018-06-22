@@ -12,7 +12,7 @@ window.G_Con = {
     //包裹合约地址
     packageUrl : "n1ynnV58SpUESzGvwU69yyN1nnpuGUqwuqT",
     //bird合约地址
-    birdUrl : "n1krJhezv3V9iPPkALaMvHaF8Xr96yNxzhp",
+    birdUrl : "n1ugQJQb59bCoQviokCSyJSht8ce5XZtkCQ",
 
     // 测试网：
     // TX Hash	ce8d290f574b3c9668ec7fd41006777b2ad6563705dda6054984295167d33b18
