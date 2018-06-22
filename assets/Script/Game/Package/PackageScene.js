@@ -367,7 +367,9 @@ cc.Class({
         if(data.parskin && data.parskin > 0 && data.parskin <= 8){
             let bgImgStr = "minibaoguo0" + data.parskin + "_normal";
             let baoSprite = packageNode.getChildByName("minibaoguo_normal").getComponent("cc.Sprite");
-            baoSprite.spriteFrame = this.spriteFrameDic[bgImgStr];
+            if(this.spriteFrameDic[bgImgStr]){
+                baoSprite.spriteFrame = this.spriteFrameDic[bgImgStr];
+            }
         }
 
         packageNode.package_data = data;
