@@ -52,8 +52,20 @@ cc.Class({
     	this.digBtn.on(cc.Node.EventType.TOUCH_CANCEL,function(){
     		this.isDigging = false;
     	}.bind(this));
-    	G_Net.autoCall()
+    	G_Net.autoCall(G_Neb.dig_getNowDigMeter,[],0,this.getDigSuccess.bind(this));
         G_Func.checkExtension();
+        G_Func.showMask(true,"加载中...");
+    },
+
+    getDigSuccess (jsonStr){
+        G_Func.showMask(false);
+        if(jsonStr.result && jsonStr.result != "" && jsonStr.result != "null"){
+            let jsonData = JSON.parse(jsonStr.result);
+            if(jsonData.digMeter){
+                this.digMeter = jsonData.digMeter;
+            }
+            this.reloadDig()
+        }
     },
 
     onClickDig (){
@@ -62,10 +74,24 @@ cc.Class({
 
 	onClickRank (){
 		this.rankLayer.active = true;
+        G_Net.autoCall(G_Neb.dig_getRankList,[],0,this.getRankSuccess.bind(this));
+        G_Func.showMask(true,"加载中...");
     },
 
-    onClickCloseRank (){
-    	this.rankLayer.active = false;
+    getRankSuccess (jsonStr){
+        G_Func.showMask(false);
+        if(jsonStr.result && jsonStr.result != "" && jsonStr.result != "null"){
+            let dataList = JSON.parse(jsonStr.result);
+            let rankDataList = [];
+            for(var i in  dataList){
+                let obj = dataList[i];
+                let data = {};
+                data.nameStr = obj.nameStr;
+                data.scoreStr = obj.digMeter + "米";
+                rankDataList.push(data);
+            }
+            this.rankLayer.getComponent("RankLayer").setRankData(rankDataList);
+        }
     },
 
     onClickSend (){

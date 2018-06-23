@@ -5,9 +5,16 @@ cc.Class({
         tipLabel : {
             default : null,
             type : cc.RichText,
+        },
+        loading : {
+            default : null,
+            type : cc.Sprite,
         }
     },
-    onLoad () {},
+    onLoad () {
+        // cc.log(this.loading.getComponent(cc.Node));
+        this.loading.node.runAction(cc.repeatForever(cc.rotateBy(1,360)));
+    },
     setData (str){
         this.tipLabel.string = str;
 
@@ -15,10 +22,5 @@ cc.Class({
         // this.node.setLocalZOrder(99999);
         this.node.active = true;
         this.node.opacity = 255;
-
-        this.node.runAction(new cc.Sequence(new cc.DelayTime(2),new cc.FadeOut(2),new cc.CallFunc(function () {
-            this.active = false;
-            // this.destroy();
-        }.bind(this.node))))
     },
 });

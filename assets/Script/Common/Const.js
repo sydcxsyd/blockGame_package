@@ -4,6 +4,8 @@ window.G_Con = {
     
     bigNum : 1000000000000000000,
 
+    globalPreStr : "global_pre_",//全局预制节点名称前缀
+
     packageState : {
         enable : 1,
         eaten : 2,
@@ -14,5 +16,5 @@ window.G_Con = {
     //bird合约地址
     birdUrl : "n1tXyZJYeF4FEKP648DDNaP7nsrgJpwRTV6",
     //dig合约地址
-    digUrl : "n1tXyZJYeF4FEKP648DDNaP7nsrgJpwRTV6",
+    digUrl : "n1ghsBBk7R9HHqCyAZGjZtfPBCXjqbHfe27",
 }

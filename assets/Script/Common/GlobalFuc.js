@@ -34,13 +34,34 @@ window.G_Func = {
     },
 
     popTip(str){
-        let canvasNode = cc.find("Canvas");
-        if(canvasNode.getChildByName("global_popTip")){
-            let popNode = canvasNode.getChildByName("global_popTip");
-            var tip = popNode.getComponent('PopTip');
-            tip.setTipData(str);
+        this._popGlobalPre([str],"popTip","PopTip",9999);
+    },
+
+    showMask (isShow,str){
+        let prefabName = "popMask";
+        if(isShow){
+            this._popGlobalPre([str],prefabName,"PopMask",9998);
         }else{
-            cc.loader.loadRes("Prefab/popTip", function(errorMessage,loadedResource){
+            let node = this._getGlobalPre(prefabName);
+            if(node){
+                node.active = false;
+            }
+        }
+    },
+
+    _getGlobalPre (prefabName){
+        let canvasNode = cc.find("Canvas");
+        return canvasNode.getChildByName(G_Con.globalPreStr + prefabName);
+    },
+
+    _popGlobalPre (paraList,prefabName,prefabScriptName,zorder){
+        let canvasNode = cc.find("Canvas");
+        if(this._getGlobalPre(prefabName)){
+            let popNode = this._getGlobalPre(prefabName);
+            var tip = popNode.getComponent(prefabScriptName);
+            tip.setData.apply(tip,paraList);
+        }else{
+            cc.loader.loadRes("Prefab/" + prefabName, function(errorMessage,loadedResource){
                 //检查资源加载
                 if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
                 if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
@@ -48,14 +69,14 @@ window.G_Func = {
                 var popTipPrefab = cc.instantiate(loadedResource);
 
                 //将预制资源添加到父节点
-                canvasNode.addChild(popTipPrefab,9999,"global_popTip");
+                canvasNode.addChild(popTipPrefab,zorder,G_Con.globalPreStr + prefabName);
 
                 //获取预制资源中的js组件，并作出相应操作
-                var tip = popTipPrefab.getComponent('PopTip');
-                tip.setTipData(str);
+                var tip = popTipPrefab.getComponent(prefabScriptName);
+                
+                tip.setData.apply(tip,paraList);
             });
         }
-
     },
 
     checkCallBack(resp){

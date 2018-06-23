@@ -20,22 +20,20 @@ DigCenter.prototype = {
     this.playerNum = 0;
   },
 
-  upload (score){
+  upload (digMeter){
     var from = Blockchain.transaction.from;
     var value = Blockchain.transaction.value;
     var bk_height = new BigNumber(Blockchain.block.height);
 
-    if(!score){
-      console.log("must got a score");
+    if(!digMeter){
+      console.log("must got a digMeter");
       return
     }
 
-    var mapData = this.digScoreMap.get(from);
-    let totalScore = score;
-    if (mapData) {
-      mapData = totalScore.plus(mapData.totalScore);
-      if(mapData.score > score){
-        score = mapData.score;
+    var mapData = this.digScoreMap.get(from);    
+    if (mapData) {     
+      if(mapData.digMeter > digMeter){
+        digMeter = mapData.digMeter;
       }
     }else{
       this.digScoreArrayMap.set(this.playerNum, from);
@@ -43,8 +41,8 @@ DigCenter.prototype = {
     }
 
     var data = new DigContent();
-    data.score = score;
-    data.totalScore = totalScore;
+    data.digMeter = digMeter;
+    // data.totalScore = totalScore;
     data.nameStr = from;
     this.digScoreMap.set(from, data);    
 
@@ -53,7 +51,7 @@ DigCenter.prototype = {
 
   getNowDigMeter (){
     var from = Blockchain.transaction.from;
-    return this.digScoreMap[from]
+    return this.digScoreMap.get(from);
   },
 
   getRankList (){
@@ -70,12 +68,10 @@ DigCenter.prototype = {
 var DigContent = function (text) {
   if (text) {
     var o = JSON.parse(text);
-    this.score = new BigNumber(o.score);
-    this.totalScore = new BigNumber(o.totalScore);
+    this.digMeter = new BigNumber(o.digMeter);    
     this.nameStr = o.nameStr;
   } else {
-    this.score = new BigNumber(0);
-    this.totalScore = new BigNumber(0);
+    this.digMeter = new BigNumber(0);    
     this.nameStr = "";
   }
 };
