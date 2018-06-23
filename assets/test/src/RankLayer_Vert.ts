@@ -26,7 +26,7 @@ export default class NewClass extends cc.Component {
         content.removeAllChildren();
         let index = 0;
         dataList.sort(function(a,b){
-            return a.scoreStr < b.scoreStr ? 1 : -1;
+            return a.score < b.score ? 1 : -1;
         });
 
         for(let i in dataList){
@@ -35,7 +35,7 @@ export default class NewClass extends cc.Component {
             rankPanel.parent = content;
             rankPanel.getChildByName("nameLabel").getComponent(cc.Label).string = data.nameStr;
             rankPanel.getChildByName("rankLabel").getComponent(cc.Label).string = "第" + (index + 1) + "名";
-            rankPanel.getChildByName("scoreLabel").getComponent(cc.Label).string = data.scoreStr;
+            rankPanel.getChildByName("scoreLabel").getComponent(cc.Label).string = data.score + "分";
             index++;
         }
         content.height = index * (100 + 10) + 50;

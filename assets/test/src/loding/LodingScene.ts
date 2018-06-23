@@ -39,7 +39,7 @@ export class LodingScene extends cc.Component {
     private gameType = {
         gobang : "gobang",
         reversi : "reversi",
-        2048 : "2048",
+        game2048 : "2048",
         jump : "jump",
         puzzle : "puzzle",
         get47 : "get47",

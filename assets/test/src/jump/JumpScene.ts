@@ -92,7 +92,7 @@ export class JumpScene extends cc.Component {
                 let obj = dataList[i];
                 let data = {};
                 data.nameStr = obj.nameStr;
-                data.scoreStr = obj.score + "分";
+                data.score = obj.score;
                 rankDataList.push(data);
             }
             G.gameRoot.showRank(true, rankDataList);
