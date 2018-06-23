@@ -81,6 +81,19 @@ window.G_Neb = {
         address : G_Con.digUrl,
         funcName : "getRankList",
     },
+
+    //=====================jump=====================
+    // upload
+    jump_upload : {
+        address : G_Con.jumpUrl,
+        funcName : "upload",
+    },
+
+    // 获取排行榜
+    jump_getRankList : {
+        address : G_Con.jumpUrl,
+        funcName : "getRankList",
+    },
 };
 
 window.G_Net = {
@@ -190,6 +203,14 @@ window.G_Net = {
                 callType = "call";
                 break;
             //----------dig----------
+            //----------jump----------
+            case G_Neb.jump_getRankList:
+                callType = "simulateCall";
+                break;
+            case G_Neb.jump_upload:
+                callType = "call";
+                break;
+            //----------jump----------
 
         }
         this[callType](type.address,value,type.funcName,paraList,callBack);

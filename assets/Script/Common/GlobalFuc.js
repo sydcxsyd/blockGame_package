@@ -50,12 +50,12 @@ window.G_Func = {
     },
 
     _getGlobalPre (prefabName){
-        let canvasNode = cc.find("Canvas");
+        let canvasNode = cc.find("Canvas").parent;
         return canvasNode.getChildByName(G_Con.globalPreStr + prefabName);
     },
 
     _popGlobalPre (paraList,prefabName,prefabScriptName,zorder){
-        let canvasNode = cc.find("Canvas");
+        let canvasNode = cc.find("Canvas").parent;
         if(this._getGlobalPre(prefabName)){
             let popNode = this._getGlobalPre(prefabName);
             var tip = popNode.getComponent(prefabScriptName);
@@ -70,7 +70,9 @@ window.G_Func = {
 
                 //将预制资源添加到父节点
                 canvasNode.addChild(popTipPrefab,zorder,G_Con.globalPreStr + prefabName);
-
+                cc.game.addPersistRootNode(canvasNode);
+                canvasNode.setLocalZOrder(zorder);
+                popTipPrefab.setPosition(cc.director.getWinSize().width/2,cc.director.getWinSize().height/2)
                 //获取预制资源中的js组件，并作出相应操作
                 var tip = popTipPrefab.getComponent(prefabScriptName);
                 
