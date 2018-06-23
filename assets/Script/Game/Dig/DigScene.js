@@ -27,6 +27,16 @@ cc.Class({
         	type : cc.Node,
         },
 
+        eventScroll : {
+            default : null,
+            type : cc.ScrollView,
+        },
+
+        digEventPanel : {
+            default : null,
+            type : cc.Prefab,
+        },
+
         isDigging : {
         	default : false,
         	visible :false,
@@ -103,7 +113,20 @@ cc.Class({
     },
 
     randomEvent (){
-        
+        let pre = cc.instantiate(this.digEventPanel);
+        let richText = pre.getChildByName("eventLabel").getComponent(cc.RichText);
+        let randomNum = G_Func.getRandom(1,33);
+        let color = "ff1aff";
+        if(randomNum <= 16){
+            let randomPer = G_Func.getRandom(1,100);
+            if(randomPer > 80){
+                color = "0f1aff";
+            }
+        }
+        richText.string = "你挖到了一个奇怪的数字<color=#" + color + ">" + randomNum + "</color>";
+        pre.parent = this.eventScroll.content;
+
+        this.eventScroll.content.height = (60 + 10) * this.eventScroll.content.getChildrenCount() + 60;
     },
 
     reloadDig (){
@@ -116,7 +139,7 @@ cc.Class({
     		this.reloadDig();
 
             let random = G_Func.getRandom();
-            if(random * 10000 < 1){
+            if(random * 1000 < 1){
                 this.randomEvent();
             }
     	}

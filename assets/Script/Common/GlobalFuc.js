@@ -94,8 +94,8 @@ window.G_Func = {
 
     //接受参数
     //() 取一个0到1的随机数
-    //(max) 取一个0到max的随机数
-    //(min，max) 取一个min到max的随机数max>min
+    //(max) 取一个0到max的随机数 (包括0 max)
+    //(min，max) 取一个min到max的随机数max>min(包括min max)
     getRandom : function(){
         if(arguments.length < 1){
             return Math.random()

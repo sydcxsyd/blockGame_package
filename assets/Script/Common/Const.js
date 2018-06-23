@@ -16,5 +16,5 @@ window.G_Con = {
     //bird合约地址
     birdUrl : "n1tXyZJYeF4FEKP648DDNaP7nsrgJpwRTV6",
     //dig合约地址
-    digUrl : "n1ghsBBk7R9HHqCyAZGjZtfPBCXjqbHfe27",
+    digUrl : "n1oFJLT1x7AVgzfLiRq9sQQF5nSBaY19FrF",
 }
