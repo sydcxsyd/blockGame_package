@@ -20,5 +20,5 @@ window.G_Con = {
 
 
     //jump合约地址
-    jumpUrl : "n1oFJLT1x7AVgzfLiRq9sQQF5nSBaY19FrF",
+    jumpUrl : "n1maRL6Qc8HyptWrxAgqjVicBVm7bgtefpM",
 }

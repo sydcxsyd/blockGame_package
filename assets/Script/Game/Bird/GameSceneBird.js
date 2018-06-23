@@ -280,7 +280,7 @@ cc.Class({
         content.removeAllChildren();
         let index = 0;
         dataList.sort(function(a,b){
-            return a.totalScore > b.totalScore ? 1 : -1;
+            return a.totalScore < b.totalScore ? 1 : -1;
         });
 
         for(let i in dataList){

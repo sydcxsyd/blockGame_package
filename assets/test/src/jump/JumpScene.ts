@@ -16,7 +16,7 @@ export class JumpScene extends cc.Component {
     private progress: Progress = null;
     @property(cc.Node)
     private ignoreStoryButton: cc.Node = null;
-    @property(Number)
+    @property
     private  playerIndex : Number = 0;
 
     public state: STATE = STATE.NONE;
@@ -69,6 +69,8 @@ export class JumpScene extends cc.Component {
                 {
                     label: "看看别人有多努力", cb: () => {
                         cc.log("看看别人有多努力!!!!!!!!!!!!")
+                        G_Func.showMask(true,"加载中...");
+                        G.gameRoot.showRank(true,[]);
                         G_Net.autoCall(G_Neb.jump_getRankList,[],0,this.getRankSuccess.bind(this));
                     }, target: this
                 });
@@ -77,11 +79,24 @@ export class JumpScene extends cc.Component {
     }
 
     private upLoadSucces (){
-
+        G_Func.popTip("本次结果已上传");
     }
 
-    private getRankSuccess (data){
-        cc.log(data.result);
+    private getRankSuccess (jsonStr){
+        cc.log(jsonStr.result);
+        G_Func.showMask(false);
+        if(jsonStr.result && jsonStr.result != "" && jsonStr.result != "null") {
+            let dataList = JSON.parse(jsonStr.result);
+            let rankDataList = [];
+            for (var i in  dataList) {
+                let obj = dataList[i];
+                let data = {};
+                data.nameStr = obj.nameStr;
+                data.scoreStr = obj.score + "分";
+                rankDataList.push(data);
+            }
+            G.gameRoot.showRank(true, rankDataList);
+        }
     }
 
     private onScreenTouchStart() {

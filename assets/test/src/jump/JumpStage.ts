@@ -44,7 +44,7 @@ export class Stage extends cc.Component {
     onLoad() {
         this.gridWidth = Math.floor(this.groundLayer.width / this.gridNum);
         this.groundOrigin = this.groundLayer.position;
-        G.gameRoot.node.setLocalZOrder(999);
+        // G.gameRoot.node.setLocalZOrder(999);
     }
 
     public init(jumpScene: JumpScene) {

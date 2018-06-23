@@ -17,6 +17,8 @@ export class GameRoot extends cc.Component {
     private tipPanel:cc.Node = null;
     @property(cc.Label)
     private tipLabel:cc.Label = null;
+    @property(cc.Node)
+    private rankLayer: cc.Node = null;
 
     public showMaskMessage(message:string,btn1?:{label:string,cb?:Function,target?:any}
     ,btn2?:{label:string,cb?:Function,target?:any},btn3?:{label:string,cb?:Function,target?:any}) {
@@ -72,5 +74,9 @@ export class GameRoot extends cc.Component {
         this.tipLabel.string = tip;
         this.tipPanel.getComponent(cc.Animation).play();
     }
-    
+
+    public showRank(isshow:boolean,dataList) {
+        this.rankLayer.active = isshow;
+        this.rankLayer.getComponent("RankLayer_Vert").setRankData(dataList);
+    }
 }
