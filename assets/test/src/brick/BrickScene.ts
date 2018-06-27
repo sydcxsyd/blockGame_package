@@ -2,6 +2,7 @@ import { BrickBall } from "./BrickBall";
 import { BrickPaddle } from "./BrickPaddle";
 import { BrickLayout } from "./BrickLayout";
 import { G } from "../G";
+import {STATE} from "../jump/JumpConstants";
 
 const { ccclass, property } = cc._decorator;
 
@@ -61,17 +62,48 @@ export class BrickScene extends cc.Component {
     stopGame() {
         this.physicsManager.enabled = false;
         G.gameRoot.showMaskMessage("游戏结束",
-                {
-                    label: "再来一局", cb: () => {
-                        this.startGame();
-                    }, target: this
-                },
-                {
-                    label: "返回大厅", cb: () => {
-                        G.returnHall();
-                    }, target: this
-                });
+            {
+                label: "再来一局", cb: () => {
+                    this.startGame();
+                }, target: this
+            },
+            {
+                label: "上传成绩", cb: () => {
+                    G_Net.autoCall(G_Neb.brick_upload,[this.score],0,this.upLoadSucces.bind(this));
+                }, target: this
+
+            },
+            {
+                label: "排行榜", cb: () => {
+                    cc.log("看看别人有多努力!!!!!!!!!!!!")
+                    G_Func.showMask(true,"加载中...");
+                    G.gameRoot.showRank(true,[]);
+                    G_Net.autoCall(G_Neb.brick_getRankList,[],0,this.getRankSuccess.bind(this));
+                }, target: this
+            });
     }
+
+    private upLoadSucces (){
+        G_Func.popTip("本次结果已上传");
+    }
+
+    private getRankSuccess (jsonStr){
+        cc.log(jsonStr.result);
+        G_Func.showMask(false);
+        if(jsonStr.result && jsonStr.result != "" && jsonStr.result != "null") {
+            let dataList = JSON.parse(jsonStr.result);
+            let rankDataList = [];
+            for (var i in  dataList) {
+                let obj = dataList[i];
+                let data = {};
+                data.nameStr = obj.nameStr;
+                data.score = obj.score;
+                rankDataList.push(data);
+            }
+            G.gameRoot.showRank(true, rankDataList);
+        }
+    }
+
 
     addScore(score){
         this.score += score;

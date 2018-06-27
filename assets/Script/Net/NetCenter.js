@@ -94,6 +94,22 @@ window.G_Neb = {
         address : G_Con.jumpUrl,
         funcName : "getRankList",
     },
+
+    //=====================jump=====================
+    // upload
+    brick_upload : {
+        address : G_Con.brickUrl,
+        funcName : "upload",
+    },
+
+    // 获取排行榜
+    brick_getRankList : {
+        address : G_Con.brickUrl,
+        funcName : "getRankList",
+    },
+
+
+
 };
 
 window.G_Net = {
@@ -211,6 +227,14 @@ window.G_Net = {
                 callType = "call";
                 break;
             //----------jump----------
+            //----------brickUrl----------
+            case G_Neb.brick_getRankList:
+                callType = "simulateCall";
+                break;
+            case G_Neb.brick_upload:
+                callType = "call";
+                break;
+            //----------brickUrl----------
 
         }
         this[callType](type.address,value,type.funcName,paraList,callBack);
