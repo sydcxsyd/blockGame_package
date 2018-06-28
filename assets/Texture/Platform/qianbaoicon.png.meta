@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "02bd376d-cfd3-4768-a408-e19ac7fc9d84",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "qianbaoicon": {
+      "ver": "1.0.3",
+      "uuid": "09dc4233-a134-41d9-a428-c5677e2a3109",
+      "rawTextureUuid": "02bd376d-cfd3-4768-a408-e19ac7fc9d84",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 1,
+      "trimY": 6,
+      "width": 48,
+      "height": 37,
+      "rawWidth": 50,
+      "rawHeight": 50,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
