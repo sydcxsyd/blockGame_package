@@ -4520,6 +4520,9 @@
     "loveBtnPre": {
       "__uuid__": "e3e1762c-4b2d-4fb3-af75-584397493834"
     },
+    "loading": {
+      "__uuid__": "4590fd0d-cfaa-4598-add4-99266a04f45e"
+    },
     "openingGame": null,
     "gameObj": null,
     "goodCost": 0.0001

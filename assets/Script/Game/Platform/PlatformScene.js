@@ -74,6 +74,11 @@ cc.Class({
             type : cc.Prefab
         },
 
+        loading : {
+            default : null,
+            type : cc.Prefab
+        },
+
         openingGame : {
             default : null,
             visible : false,
@@ -249,7 +254,7 @@ cc.Class({
 
     clickPageView (event){
         let index = event.currentTarget.name[event.currentTarget.name.length - 1];
-        let data = this.allDataObj.AD_index_data[index];
+        let data = this.allDataObj.AD_index_data[index - 1];
 
         cc.sys.openURL(data.tarlink);
     },
