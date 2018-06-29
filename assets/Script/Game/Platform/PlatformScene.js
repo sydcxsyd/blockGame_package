@@ -22,6 +22,12 @@ cc.Class({
             type : cc.PageView
         },
 
+        loveLabel : {
+            default : null,
+            type : cc.Label,
+            tooltip: "平台喜欢的人",//在 属性检查器 面板中添加属性的 Tooltip
+        },
+
         gameContentLayer : {
             default : null,
             type : cc.Node
@@ -32,14 +38,40 @@ cc.Class({
             type : cc.Label
         },
 
-        gameContentLabel : {
+        contentHeadLabel : {
             default : null,
             type : cc.Label
         },
 
-        gameContentDescLabel : {
+        contentDescLabel : {
             default : null,
             type : cc.Label
+        },
+
+        contentSupportLabel : {
+            default : null,
+            type : cc.Label
+        },
+
+        contentHeadSprite : {
+            default : null,
+            type : cc.Sprite
+        },
+
+
+        newGameLayer : {
+            default : null,
+            type : cc.Node
+        },
+
+        heroGameLayer : {
+            default : null,
+            type : cc.Node
+        },
+
+        loveBtnPre : {
+            default : null,
+            type : cc.Prefab
         },
 
         openingGame : {
@@ -67,12 +99,127 @@ cc.Class({
             gameDesc : "",
             gameWallet : "",
         }
+
+        this.spriteFrameDic = {};
     },
 
     start () {
         this.schedule(this.pageTurnNext,this.pageTurnTime);
+        this.loadPictures();
+        this.getShowData();
+        G_Func.checkExtension();
+        this.initLoveBtn();
+        this.platformLocation.string = "";
+    },
 
-        this.initData();
+    initLoveBtn(){
+        for(let i = 1 ; i <= 3 ; i++){
+            let sprite = cc.find("youxi0" + i,this.newGameLayer);
+            this.createLoveBtn(sprite);
+        }
+
+        for(let i = 1 ; i <= 6 ; i++){
+            let sprite = cc.find("youxi0" + i,this.heroGameLayer);
+            this.createLoveBtn(sprite);
+        }
+    },
+
+    createLoveBtn (root){
+        let loveBtn = cc.instantiate(this.loveBtnPre);
+        root.loveBtn = loveBtn;
+        loveBtn.parent = root;
+        let size = root.getContentSize();
+        loveBtn.setPosition(size.width/2 - 16,size.height/2 - 24);
+        loveBtn.on(cc.Node.EventType.TOUCH_END,this.touchLove,this);
+    },
+
+    touchLove(event){
+        let rootBtn = event.currentTarget.parent;
+        let data = rootBtn.data;
+        G_Net.autoCall(G_Neb.platform_supportGame,[data.gaidx],0.0001,this.loveSuccess.bind(this));
+        G_Func.popTip("正在交易中...")
+    },
+
+    loadPictures (){
+        cc.loader.loadResDir("Platform",function (error,assets) {
+            this.picturesLoadSuccess = true;
+            this.reloadScene();
+            for(var i in assets){
+                this.spriteFrameDic[assets[i].name] = assets[i];
+                // assets[i].retain();
+            }
+        }.bind(this))
+    },
+
+    reloadScene (){
+        if(!this.picturesLoadSuccess || !this.allDataObj){
+            return;
+        }
+
+        let index = 1;
+        for(let i in this.allDataObj.AD_index_data){
+            let data = this.allDataObj.AD_index_data[i];
+            let sprite = cc.find("page_" + index,this.actPageView.content);
+            sprite.on(cc.Node.EventType.TOUCH_END,this.clickPageView,this);
+            let resData = G_PlatformRes[data.resindex];
+            sprite.getComponent(cc.Sprite).spriteFrame = this.spriteFrameDic[resData.res];
+            index++;
+        }
+        // this.allDataObj
+        index = 1;
+        let maxData = this.allDataObj.Game_newgameMax_data[0];
+        let tempSprite = cc.find("youxi0" + index,this.newGameLayer);
+        tempSprite.on(cc.Node.EventType.TOUCH_END,this.clickMax,this);
+        let tempResData = G_PlatformRes[maxData.logoindex];
+        tempSprite.getComponent(cc.Sprite).spriteFrame = this.spriteFrameDic[tempResData.res];
+        tempSprite.loveBtn.getChildByName("loveLabel").getComponent(cc.Label).string = maxData.support;
+        tempSprite.data = maxData;
+        index++;
+        for(let i in this.allDataObj.Game_newgame_data){
+            let data = this.allDataObj.Game_newgame_data[i];
+            let sprite = cc.find("youxi0" + index,this.newGameLayer);
+            sprite.on(cc.Node.EventType.TOUCH_END,this.clickNew,this);
+            let resData = G_PlatformRes[data.logoindex];
+            sprite.getComponent(cc.Sprite).spriteFrame = this.spriteFrameDic[resData.res];
+            sprite.loveBtn.getChildByName("loveLabel").getComponent(cc.Label).string = data.support;
+            sprite.data = data;
+            index++;
+        }
+        index = 1;
+        for(let i in this.allDataObj.Game_game1_data){
+            let data = this.allDataObj.Game_game1_data[i];
+            let sprite = cc.find("youxi0" + index,this.heroGameLayer);
+            sprite.on(cc.Node.EventType.TOUCH_END,this.clickHero,this);
+            let resData = G_PlatformRes[data.logoindex];
+            sprite.getComponent(cc.Sprite).spriteFrame = this.spriteFrameDic[resData.res];
+            sprite.loveBtn.getChildByName("loveLabel").getComponent(cc.Label).string = data.support;
+            sprite.data = data;
+            index++;
+        }
+        this.loveLabel.string = "";
+    },
+
+    getShowData (){
+        G_Net.autoCall(G_Neb.platform_getAllData,[],0,this.getAllDataSuccess.bind(this));
+        G_Net.autoCall(G_Neb.platform_getGameData,[10],0,this.getLoveData.bind(this));
+        G_Func.showMask(true);
+    },
+
+    getLoveData (jsonData){
+        if(jsonData.result){
+            let resultObj = JSON.parse(jsonData.result);
+            this.loveLabel.string = resultObj[0].support;
+        }
+    },
+
+    getAllDataSuccess (jsonData){
+        G_Func.showMask(false);
+        if(jsonData.result){
+            let resultObj = JSON.parse(jsonData.result);
+            cc.log(resultObj);
+            this.allDataObj = resultObj;
+            this.reloadScene();
+        }
     },
 
     pageTurnNext (){
@@ -83,15 +230,13 @@ cc.Class({
         this.actPageView.setCurrentPageIndex(currentIndex);
     },
 
-    openContent (gameObj){
-        this.openingGame = gameObj;
-        this.reloadContent();
-        this.gameContentLayer.active = true;
-    },
-
     reloadContent (){
-        this.gameContentLabel.string = this.openingGame.gameName;
-        this.gameContentDescLabel.string = this.openingGame.gameDesc;
+        this.contentHeadLabel.string = this.openingGame.name;
+        this.contentDescLabel.string = this.openingGame.resinfo;
+        this.contentSupportLabel.string = this.openingGame.support;
+
+        let iconRes = G_PlatformRes[this.openingGame.logoindex].iconRes
+        this.contentHeadSprite.spriteFrame = this.spriteFrameDic[iconRes];
     },
 
     closeEvent (){
@@ -99,34 +244,61 @@ cc.Class({
     },
 
     startEvent (){
-        cc.sys.openURL(this.openingGame.gameUrl);
+        cc.sys.openURL(this.openingGame.tarlink);
     },
 
     clickPageView (event){
         let index = event.currentTarget.name[event.currentTarget.name.length - 1];
-        let gameObj = this.pageViewDic[index];
-        this.openContent(gameObj);
+        let data = this.allDataObj.AD_index_data[index];
+
+        cc.sys.openURL(data.tarlink);
+    },
+
+    clickMax (){
+        let data = this.allDataObj.Game_newgameMax_data[0];
+        this.gameContentLayer.active = true;
+        this.openingGame = data;
+        this.reloadContent()
+    },
+
+    clickNew (event){
+        let index = event.currentTarget.name[event.currentTarget.name.length - 1];
+        let data = this.allDataObj.Game_newgame_data[index - 2];
+
+        this.gameContentLayer.active = true;
+        this.openingGame = data;
+        this.reloadContent()
+    },
+
+    clickHero (event){
+        let index = event.currentTarget.name[event.currentTarget.name.length - 1];
+        let data = this.allDataObj.Game_game1_data[index - 1];
+
+        this.gameContentLayer.active = true;
+        this.openingGame = data;
+        this.reloadContent()
+    },
+
+    clickContentLove (){
+        G_Net.autoCall(G_Neb.platform_supportGame,[this.openingGame.gaidx],0,this.loveSuccess.bind(this));
+        G_Func.popTip("正在交易中...")
+    },
+
+    clickContentTest (){
+        cc.sys.openURL(this.openingGame.dapdaplink);
+    },
+
+    loveSuccess (){
+        // G_Func.showMask(false);
+    },
+
+    clickGood (){
+        G_Net.autoCall(G_Neb.platform_supportGame,[10],0.0001,this.loveSuccess.bind(this));
     },
 
     update (dt) {
         
     },
-
-    initData (){
-        this.pageViewDic = {};
-
-        for (let i = 1 ; i <= 3 ; i++){
-            this.pageViewDic[i] = Object.create(this.gameObj);
-        }
-
-
-
-        this.pageViewDic[1].gameName = "DapDap"
-        this.pageViewDic[1].gameUrl = "https://dapdap.io/"
-        this.pageViewDic[1].gameDesc = "哎呀"
-
-        this.pageViewDic[2].gameName = "啊"
-        this.pageViewDic[2].gameUrl = "https://sydcxsyd.github.io/jump_build/"
-        this.pageViewDic[2].gameDesc = "哎呀"
-    },
 });
+
+

@@ -95,7 +95,7 @@ window.G_Neb = {
         funcName : "getRankList",
     },
 
-    //=====================jump=====================
+    //=====================brick=====================
     // upload
     brick_upload : {
         address : G_Con.brickUrl,
@@ -108,7 +108,48 @@ window.G_Neb = {
         funcName : "getRankList",
     },
 
+    //=====================platform=====================
+    // 点赞游戏
+    // 参数1：游戏ID
+    platform_supportGame : {
+        address : G_Con.platformUrl,
+        funcName : "supportGame",
+    },
 
+    // 获得指定广告类型的资源
+    // 参数1：广告类型（英文）
+    platform_getADCfg : {
+        address : G_Con.platformUrl,
+            funcName : "getADCfg",
+    },
+
+    // 获得指定游戏类型的资源
+    // 参数1：游戏类型（英文）
+    platform_getGameCfg : {
+        address : G_Con.platformUrl,
+            funcName : "getGameCfg",
+    },
+
+    // 批量获取广告的详情数据
+    // 参数1：广告ID列表，多个ID用 '|' 作分隔符
+    platform_getADData : {
+        address : G_Con.platformUrl,
+            funcName : "getADData",
+    },
+
+    // 批量获取游戏的详情数据
+    // 参数1：游戏ID列表，多个ID用 '|' 作分隔符
+    platform_getGameData : {
+        address : G_Con.platformUrl,
+            funcName : "getGameData",
+    },
+
+    // 批量获取游戏的详情数据
+    // 参数1：游戏ID列表，多个ID用 '|' 作分隔符
+    platform_getAllData : {
+        address : G_Con.platformUrl,
+        funcName : "getAllData",
+    },
 
 };
 
@@ -235,6 +276,18 @@ window.G_Net = {
                 callType = "call";
                 break;
             //----------brickUrl----------
+            //----------platform----------
+            case G_Neb.platform_getADCfg:
+            case G_Neb.platform_getGameCfg:
+            case G_Neb.platform_getADData:
+            case G_Neb.platform_getGameData:
+            case G_Neb.platform_getAllData:
+                callType = "simulateCall";
+                break;
+            case G_Neb.platform_supportGame:
+                callType = "call";
+                break;
+            //----------platform----------
 
         }
         this[callType](type.address,value,type.funcName,paraList,callBack);

@@ -23,4 +23,6 @@ window.G_Con = {
     jumpUrl : "n1maRL6Qc8HyptWrxAgqjVicBVm7bgtefpM",
     //brick合约地址
     brickUrl : "n22EfnPPxMZR2HAffJjLqGN8cFKboE8eMyH",
+    //platform合约地址
+    platformUrl : "n1os43BrZKh6v4xhNmwqpNb99Ha9mSRYgYG",
 }

@@ -39,6 +39,9 @@ window.G_Func = {
 
     showMask (isShow,str){
         let prefabName = "popMask";
+        if(!str){
+            str = "加载中...";
+        }
         if(isShow){
             this._popGlobalPre([str],prefabName,"PopMask",9998);
         }else{

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "71f810b8-700d-4216-9332-cd95364aed82",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "youxi03icon": {
+      "ver": "1.0.3",
+      "uuid": "6a853c0c-93ac-454a-b673-e19ce1db2d5a",
+      "rawTextureUuid": "71f810b8-700d-4216-9332-cd95364aed82",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 170,
+      "height": 170,
+      "rawWidth": 170,
+      "rawHeight": 170,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
