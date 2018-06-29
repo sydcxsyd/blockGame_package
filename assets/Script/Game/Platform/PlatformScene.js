@@ -148,11 +148,11 @@ cc.Class({
     loadPictures (){
         cc.loader.loadResDir("Platform",function (error,assets) {
             this.picturesLoadSuccess = true;
-            this.reloadScene();
             for(var i in assets){
                 this.spriteFrameDic[assets[i].name] = assets[i];
                 // assets[i].retain();
             }
+            this.reloadScene();
         }.bind(this))
     },
 
