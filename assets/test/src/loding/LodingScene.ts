@@ -33,7 +33,7 @@ export class LodingScene extends cc.Component {
             }else{
                 this.tipLabel.string = tip.substring(0,i);
             }
-        },0.3,tip.length+1,0.3);
+        },0.1,tip.length+1,0.3);
     }
     @property(Object)
     private gameType = {

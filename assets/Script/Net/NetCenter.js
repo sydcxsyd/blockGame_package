@@ -108,10 +108,16 @@ window.G_Neb = {
         funcName : "getRankList",
     },
 
-    // 获取排行榜
-    brick_loveMe : {
+    // loveme
+    brick_regist : {
         address : G_Con.brickUrl,
-        funcName : "loveMe",
+        funcName : "regist",
+    },
+
+    // loveme
+    brick_checkRegist : {
+        address : G_Con.brickUrl,
+        funcName : "checkRegist",
     },
 
     //=====================platform=====================
@@ -311,9 +317,12 @@ window.G_Net = {
             //----------jump----------
             //----------brickUrl----------
             case G_Neb.brick_getRankList:
+            case G_Neb.brick_checkRegist:
                 callType = "simulateCall";
                 break;
             case G_Neb.brick_upload:
+            case G_Neb.brick_loveMe:
+            case G_Neb.brick_regist:
                 callType = "call";
                 break;
             //----------brickUrl----------

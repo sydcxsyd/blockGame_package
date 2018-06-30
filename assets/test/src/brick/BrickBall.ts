@@ -14,6 +14,9 @@ export class BrickBall extends cc.Component {
     }
 
     onBeginContact(contact, self, other) {
+        if(!this.brickScene){
+            return;
+        }
         switch (other.tag) {
             case 1://球碰到砖块
                 this.brickScene.onBallContactBrick(self.node, other.node);

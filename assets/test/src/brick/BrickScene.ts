@@ -24,9 +24,72 @@ export class BrickScene extends cc.Component {
 
     onLoad() {
         this.physicsManager = cc.director.getPhysicsManager();
-        this.startGame();
+        // this.startGame();
+        G_Func.checkExtension();
+        G_Net.autoCall(G_Neb.brick_checkRegist,[],0,this.getInfoSuccess.bind(this));
+        G_Func.showMask(true);
+
     }
 
+    getInfoSuccess (resultData){
+        G_Func.showMask(false);
+        if(resultData.result && resultData.result != "null" && resultData.result != "undefined"){
+            G.gameRoot.showMaskMessage("等待中",
+                {
+                    label: "开始游戏", cb: () => {
+                        this.startGame();
+                    }, target: this
+                },
+                {
+                    label: "排行榜", cb: () => {
+                        cc.log("看看别人有多努力!!!!!!!!!!!!")
+                        G_Func.showMask(true, "加载中...");
+                        G.gameRoot.showRank(true, []);
+                        G_Net.autoCall(G_Neb.brick_getRankList, [], 0, this.getRankSuccess.bind(this));
+                }, target: this
+            });
+
+        }else{
+            G.gameRoot.showMaskMessage("您还没有账号",
+                {
+                    label: "免费注册", cb: () => {
+                        this.startGame();
+                    }, target: this
+                },
+                {
+                    label: "排行榜", cb: () => {
+                        cc.log("看看别人有多努力!!!!!!!!!!!!")
+                        G_Func.showMask(true, "加载中...");
+                        G.gameRoot.showRank(true, []);
+                        G_Net.autoCall(G_Neb.brick_getRankList, [], 0, this.getRankSuccess.bind(this));
+                    }, target: this
+                }
+                );
+        }
+    }
+
+    regist (){
+        G_Func.showMask(true);
+        G_Net.autoCall(G_Neb.brick_regist,[],0,this.registSuccess.bind(this));
+    }
+
+    registSuccess (){
+        G_Func.showMask(false);
+        G.gameRoot.showMaskMessage("等待中",
+            {
+                label: "开始游戏", cb: () => {
+                    this.startGame();
+                }, target: this
+            },
+            {
+                label: "排行榜", cb: () => {
+                    cc.log("看看别人有多努力!!!!!!!!!!!!")
+                    G_Func.showMask(true, "加载中...");
+                    G.gameRoot.showRank(true, []);
+                    G_Net.autoCall(G_Neb.brick_getRankList, [], 0, this.getRankSuccess.bind(this));
+                }, target: this
+            });
+    }
     //this.physicsManager.debugDrawFlags =0;
     // cc.PhysicsManager.DrawBits.e_aabbBit |
     // cc.PhysicsManager.DrawBits.e_pairBit |

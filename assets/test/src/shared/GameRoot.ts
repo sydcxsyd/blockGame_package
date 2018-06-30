@@ -14,11 +14,21 @@ export class GameRoot extends cc.Component {
     @property(cc.Node)
     private messageBtn3: cc.Node = null;
     @property(cc.Node)
+    private loveMeBtn: cc.Node = null;
+    @property(cc.Node)
     private tipPanel:cc.Node = null;
     @property(cc.Label)
     private tipLabel:cc.Label = null;
     @property(cc.Node)
     private rankLayer: cc.Node = null;
+
+    start (){
+        this.loveMeBtn.on(cc.Node.EventType.TOUCH_END,()=>{
+            G_Net.autoCall(G_Neb.brick_loveMe,[],0.01,function(){
+                G_Func.popTip("感谢您的支持！");
+            });
+        },this)
+    }
 
     public showMaskMessage(message:string,btn1?:{label:string,cb?:Function,target?:any}
     ,btn2?:{label:string,cb?:Function,target?:any},btn3?:{label:string,cb?:Function,target?:any}) {
