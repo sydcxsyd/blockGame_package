@@ -285,7 +285,7 @@ cc.Class({
     },
 
     clickContentLove (){
-        G_Net.autoCall(G_Neb.platform_supportGame,[this.openingGame.gaidx],0,this.loveSuccess.bind(this));
+        G_Net.autoCall(G_Neb.platform_supportGame,[this.openingGame.gaidx],0.0001,this.loveSuccess.bind(this));
         G_Func.popTip("正在交易中...")
     },
 
