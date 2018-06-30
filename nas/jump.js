@@ -18,6 +18,7 @@ let JumpCenter = function(){
 JumpCenter.prototype = {
   init(){
     this.playerNum = 0;
+    this._admin = "n1JPeX8mkSy2D2RycVEsB1JRL3b5aMMdY56";
   },
 
   upload (score){

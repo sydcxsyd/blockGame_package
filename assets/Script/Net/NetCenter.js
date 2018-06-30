@@ -108,6 +108,12 @@ window.G_Neb = {
         funcName : "getRankList",
     },
 
+    // 获取排行榜
+    brick_loveMe : {
+        address : G_Con.brickUrl,
+        funcName : "loveMe",
+    },
+
     //=====================platform=====================
     // 点赞游戏
     // 参数1：游戏ID
@@ -151,6 +157,41 @@ window.G_Neb = {
         funcName : "getAllData",
     },
 
+    //=====================robot=====================
+    robotUrl_createRobot : {
+        address : G_Con.robotUrl,
+        funcName : "createRobot",
+    },
+
+    robotUrl_getUserData : {
+        address : G_Con.robotUrl,
+        funcName : "getUserData",
+    },
+
+    robotUrl_getHistory : {
+        address : G_Con.robotUrl,
+        funcName : "getHistory",
+    },
+
+    robotUrl_powerUp : {
+        address : G_Con.robotUrl,
+        funcName : "powerUp",
+    },
+
+    robotUrl_growUp : {
+        address : G_Con.robotUrl,
+        funcName : "growUp",
+    },
+
+    robotUrl_destory : {
+        address : G_Con.robotUrl,
+        funcName : "destory",
+    },
+
+    robotUrl_randomFight : {
+        address : G_Con.robotUrl,
+        funcName : "randomFight",
+    },
 };
 
 window.G_Net = {

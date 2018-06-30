@@ -25,4 +25,6 @@ window.G_Con = {
     brickUrl : "n22EfnPPxMZR2HAffJjLqGN8cFKboE8eMyH",
     //platform合约地址
     platformUrl : "n1os43BrZKh6v4xhNmwqpNb99Ha9mSRYgYG",
+    //robot合约地址
+    robotUrl : "n1os43BrZKh6v4xhNmwqpNb99Ha9mSRYgYG",
 }
