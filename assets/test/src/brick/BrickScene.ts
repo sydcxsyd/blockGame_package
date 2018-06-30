@@ -53,7 +53,7 @@ export class BrickScene extends cc.Component {
             G.gameRoot.showMaskMessage("您还没有账号",
                 {
                     label: "免费注册", cb: () => {
-                        this.startGame();
+                        this.regist();
                     }, target: this
                 },
                 {

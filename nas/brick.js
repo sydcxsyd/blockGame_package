@@ -32,6 +32,11 @@ BrickCenter.prototype = {
       this.brickScoreArrayMap.set(this.playerNum, from);
       this.playerNum++;
     }
+    var data = new BrickContent();
+    data.score = 0;
+    // data.totalScore = totalScore;
+    data.nameStr = from;
+    this.brickScoreMap.set(from, data);    
   },
 
   checkRegist(){

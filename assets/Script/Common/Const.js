@@ -22,7 +22,7 @@ window.G_Con = {
     //jump合约地址
     jumpUrl : "n1maRL6Qc8HyptWrxAgqjVicBVm7bgtefpM",
     //brick合约地址
-    brickUrl : "n1nZqfVfLBaNbBDmeg4eWiQKxkHTEZRsGt8",
+    brickUrl : "n22rREhqkvwDk8M46ziREdf4aXByDJwg388",
     //platform合约地址
     platformUrl : "n1os43BrZKh6v4xhNmwqpNb99Ha9mSRYgYG",
     //robot合约地址

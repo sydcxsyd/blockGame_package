@@ -109,6 +109,12 @@ window.G_Neb = {
     },
 
     // loveme
+    brick_loveMe : {
+        address : G_Con.brickUrl,
+        funcName : "brick_loveMe",
+    },
+
+    // loveme
     brick_regist : {
         address : G_Con.brickUrl,
         funcName : "regist",
