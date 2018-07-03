@@ -208,128 +208,122 @@ window.G_Neb = {
 
 window.G_Net = {
     // callbackAddress : "NebPay.config.testnetUrl",
-    callbackAddress : "NebPay.config.mainnetUrl",
-    serialNumberList : [],
+    callbackAddress: "NebPay.config.mainnetUrl",
+    serialNumberList: [],
 
-    call (to, value, func, args,callBack){
-        let g_nebPay = neb_require("nebpay");
-        let nebPay = new g_nebPay();
+    callType : {
+        call : "call",
+        get : "simulateCall",
+    },
+    isInit : false,
+    init (){
+        this.isInit = true;
+        this.g_nebPay = nebPay_require("nebpay");
+        this.nebPay = new this.g_nebPay();
 
-        // goods: {        //Dapp端对当前交易商品的描述信息，app暂时不展示
-        //     name: "",       //商品名称
-        //         desc: "",       //描述信息
-        //         orderId: "",    //订单ID
-        //         ext: ""         //扩展字段
-        // },
-        // qrcode: {
-        //     showQRCode: false,      //是否显示二维码信息
-        //         container: undefined    //指定显示二维码的canvas容器，不指定则生成一个默认canvas
-        // },
-        //
-        // // callback 是记录交易返回信息的交易查询服务器地址，
-        // // 目前我们提供了主网和测试网交易查询服务器, 查询频率不能超过6次/分钟
-        // //callback: NebPay.config.mainnetUrl,     //主网(默认为主网,可不写)
-        // callback: NebPay.config.testnetUrl, //测试网
-        //
-        //     // listener: 指定一个listener函数来处理交易返回信息（仅用于浏览器插件，App钱包不支持listener）
-        //     listener: undefined,
-        //     // if use nrc20pay ,should input nrc20 params like name, address, symbol, decimals
-        //     nrc20: undefined
+        this.g_neb = nebulas_require("nebulas");
+        this.neb = new this.g_neb.Neb();
+        this.chainInfo = this.nasConfig.mainnet;
+        this.neb.setRequest(new this.g_neb.HttpRequest(this.chainInfo.host));
+    },
+
+    call(to, value, func, args, callBack) {
+
         let options = {
-            callback  : this.callbackAddress,
+            callback: this.callbackAddress,
             qrcode: {
                 showQRCode: false,      //是否显示二维码信息
                 container: undefined    //指定显示二维码的canvas容器，不指定则生成一个默认canvas
             },
-            listener : callBack,
+            listener: callBack,
         };
         let argStr = this._dealArg(args);
-        let serialNumber = nebPay.call(to, value, func, argStr, options);
+        let serialNumber = this.nebPay.call(to, value, func, argStr, options);
         this.serialNumberList.push(serialNumber);
 
         G_Func.popTip("正在交易中");
     },
 
-    simulateCall (to, value, func, args,callBack){
-        let g_nebPay = neb_require("nebpay");
-        let nebPay = new g_nebPay();
-        
+    simulateCall(to, value, func, args, callBack) {
         let options = {
-            callback  : this.callbackAddress,
+            callback: this.callbackAddress,
             qrcode: {
                 showQRCode: false,      //是否显示二维码信息
                 container: undefined    //指定显示二维码的canvas容器，不指定则生成一个默认canvas
             },
-            listener : callBack,
+            listener: callBack,
         };
         var argStr = this._dealArg(args);
-        let serialNumber = nebPay.simulateCall(to, value, func, argStr, options);
+        let serialNumber = this.nebPay.simulateCall(to, value, func, argStr, options);
         this.serialNumberList.push(serialNumber);
     },
 
-    _dealArg : function(paraList){
+    _dealArg: function (paraList) {
         let str = JSON.stringify(paraList)
         return str;
     },
 
-    registerNickname (str){
-        this.call(G_Neb.mail.address,0,G_Neb.mail.funcName,[str])
+    registerNickname(str) {
+        this.call(G_Neb.mail.address, 0, G_Neb.mail.funcName, [str])
     },
 
-    getAssemblyInfo (){
-        this.simulateCall(G_Neb.userInfo.address,0,G_Neb.userInfo.funcName,[])
+    getAssemblyInfo() {
+        this.simulateCall(G_Neb.userInfo.address, 0, G_Neb.userInfo.funcName, [])
     },
 
-    autoCall : function(type,paraList,value,callBack){
+    autoCall: function (type, paraList, value, callBack) {
+        if(!this.isInit){
+            this.init();
+        }
         let callType = "";
-        switch (type){
+        switch (type) {
             //----------package----------
             case G_Neb.getParcelCount:
             case G_Neb.getAssemblyInfo:
             case G_Neb.getParcelData:
             case G_Neb.getParcelData_theLatest:
-                callType = "simulateCall";
+                callType = this.callType.get;
                 break;
             case G_Neb.airdropParcel:
             case G_Neb.lickParcel:
             case G_Neb.soldOut:
-                callType = "call";
+                callType = this.callType.call;
                 break;
             //----------package----------
             //----------bird----------
             case G_Neb.bird_getRankList:
-                callType = "simulateCall";
+                callType = this.callType.get;
                 break;
             case G_Neb.bird_upload:
-                callType = "call";
+                callType = this.callType.call;
                 break;
             //----------bird----------
             //----------dig----------
             case G_Neb.dig_getRankList:
             case G_Neb.dig_getNowDigMeter:
-                callType = "simulateCall";
+                callType = this.callType.get;
                 break;
             case G_Neb.dig_upload:
-                callType = "call";
+                callType = this.callType.call;
                 break;
             //----------dig----------
             //----------jump----------
             case G_Neb.jump_getRankList:
-                callType = "simulateCall";
+                callType = this.callType.get;
                 break;
             case G_Neb.jump_upload:
-                callType = "call";
+                callType = this.callType.call;
                 break;
             //----------jump----------
             //----------brickUrl----------
             case G_Neb.brick_getRankList:
             case G_Neb.brick_checkRegist:
-                callType = "simulateCall";
+                callType = this.callType.get;
                 break;
             case G_Neb.brick_upload:
             case G_Neb.brick_loveMe:
             case G_Neb.brick_regist:
-                callType = "call";
+                callType = this.callType.call;
                 break;
             //----------brickUrl----------
             //----------platform----------
@@ -338,14 +332,53 @@ window.G_Net = {
             case G_Neb.platform_getADData:
             case G_Neb.platform_getGameData:
             case G_Neb.platform_getAllData:
-                callType = "simulateCall";
+                callType = this.callType.get;
                 break;
             case G_Neb.platform_supportGame:
-                callType = "call";
+                callType = this.callType.call;
                 break;
             //----------platform----------
 
         }
-        this[callType](type.address,value,type.funcName,paraList,callBack);
+        if(callType == this.callType.call){
+            this[callType](type.address, value, type.funcName, paraList, callBack);
+        }else if(callType == this.callType.get){
+            this.get(type.address,type.funcName, paraList, callBack);
+        }
+    },
+
+
+    nasConfig: {
+        mainnet: {
+            chainID: '1',
+            host: "https://mainnet.nebulas.io",
+            payHost: "https://pay.nebulas.io/api/mainnet/pay"
+        },
+        testnet: {
+            chainID: '1001',
+            host: "https://testnet.nebulas.io",
+            payHost: "https://pay.nebulas.io/api/pay"
+        }
+    },
+
+    get: function (address, func, args, callback) {
+        let nasApi = this.neb.api;
+
+        let argStr = this._dealArg(args);
+        let dappAddress = address;
+        nasApi.call({
+            chainID: this.chainInfo.chainID,
+            from: dappAddress,
+            to: dappAddress,
+            value: 0,
+            gasPrice: 1000000,
+            gasLimit: 2000000,
+            contract: {
+                function: func,
+                args: argStr
+            }
+        }).then(function (resp) {
+            if (callback) callback(resp)
+        })
     },
 };

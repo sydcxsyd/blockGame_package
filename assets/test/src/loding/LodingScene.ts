@@ -50,7 +50,7 @@ export class LodingScene extends cc.Component {
         brick : "brick",
     };
     private onLoadSuccess() {
-        G.enterScene(this.gameType.brick);
+        G.enterScene(this.gameType.jump);
     }
 }
 
